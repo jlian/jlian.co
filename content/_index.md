@@ -1,13 +1,12 @@
 ---
-title: "John Lian - Person"
+title: "John Lian"
 date: 2018-02-21T20:55:14-08:00
-tags: [John Lian, engineering, PM, product management, program management, robotics]
 featured_image: '/images/seattle.jpg'
 
 draft: true
 ---
 
-Hi, I'm John. I work as a PM at [Microsoft Azure](https://azure.microsoft.com/). Here's where I discuss some of my projects and share my (free!) photography work.
+Hi, I'm John. I'm a PM at [Microsoft Azure](https://azure.microsoft.com/), and here's where I discuss some of my projects and share my (free!) photography work.
 
 Before Microsoft, I studied at Mechanical Engineering at [McGill](http://www.mcgill.ca), where I 
 
