@@ -12,7 +12,7 @@ I used animation to help me visualize some of the work I did for my [honours the
 	<figcaption>Shockwave created by a driving piston in a one-dimensional nonlinear lattice</figcaption>
 </figure>
 
-### The "Easy" Way
+# The "Easy" Way
 
 Say you want to animate a particle trajectory (position vs time), the most obvious way would be to use `plot()` in a `for` loop, kind of like this:
 
@@ -31,7 +31,7 @@ If you've ever tried doing this you would notice that it does not scale well. Ev
 
 [^1]: This is no longer the case after R2014b.
 
-### A Better Method
+# A Better Method
 
 In [MathWorks' article on animation techniques](http://www.mathworks.com/help/matlab/creating_plots/animation-techniques.html), we can see that they recommend 
 
@@ -57,7 +57,7 @@ end
 **Note:** Sometimes, especially if your animation update command is after complicated computation, you need to use `drawnow` to force the animation to occur in real time.
 {: .notice}
 
-#### A Quick Example
+## A Quick Example
 
 I wrote a simple script that uses this technique to animate a particle in a sine trajectory. It should look like this:[^2]
 
@@ -70,7 +70,7 @@ I wrote a simple script that uses this technique to animate a particle in a sine
 
 [^2]: This GIF is 60 FPS.
 
-### Animating Multiple Trajectories
+# Animating Multiple Trajectories
 
 I ran into some problems when I needed to animate *variable* number of trajectories. I wanted to visualize how changing the number of particles in my system changed the trajectories, but MATLAB was giving me errors when I used the `set()` method. 
 
@@ -103,7 +103,7 @@ Here, `particlePosition` contains up to five trajectories. Note the use of `num2
 **Note:** The`YData` you are setting must be a **column cell vector**. So if your data is structured such that each row represents a frame in the animation, you must transpose your data in `set()`.
 {: .notice}
 
-#### Another Quick Example
+## Another Quick Example
 
 You can download the other script to see how this can be implemented. It looks like this:
 
@@ -114,6 +114,6 @@ You can download the other script to see how this can be implemented. It looks l
 
 <a markdown="0" href="{{ site.url }}Animate2.m" class="btn">Download Animate2.m</a>
 
-### An Example from MathWorks
+# An Example from MathWorks
 
 I learned a lot from MathWorks' animation example here: <https://www.mathworks.com/examples/matlab/4020-animation>, including how to export as GIFs.
