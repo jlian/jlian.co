@@ -1,5 +1,5 @@
 ---
-title: "Photography"
+title: "Photos"
 #description: "Some examples of my photography work."
 tags: [images, photography]
 featured_image: "/images/cambodia.jpg"
