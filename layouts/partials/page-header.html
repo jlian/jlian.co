@@ -23,9 +23,24 @@
     </div>
   </header>
 {{ else }}
-  <header>
-    <div class="{{ .Site.Params.background_color_class | default "bg-black" }}">
-      {{ partial "site-navigation.html" . }}
-    </div>
-  </header>
+  <header class="bg-gold">
+      <div class="{{ .Site.Params.background_color_class | default "bg-black" }}">
+        {{ partial "site-navigation.html" . }}
+      </div>
+      <div class="mw8 center pv4 pv5-l ph3 ph4-ns">
+        <time class="f6 mb2 dib ttu tracked" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">          
+          {{ .Date.Format "2 January, 2006" }}
+        </time>
+        <h1 class="f2 f1-m f-headline-l measure-narrow lh-title mv0">
+          <span class="bg-black-90 lh-copy white pa1 tracked-tight">
+              {{ .Title | default .Site.Title }}
+          </span>
+        </h1>
+        {{ with .Params.description  }}
+          <h2 class="f3 fw4 i">
+            {{ . }}
+          </h2>
+        {{ end }}
+      </div>
+    </header>
 {{ end }}
