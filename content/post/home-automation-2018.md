@@ -2,7 +2,7 @@
 title: "State of my home automation in 2018"
 date: 2018-02-21T20:07:29-08:00
 draft: true
-featured_image: "/images/pier.jpg"
+featured_image: "/images/home.jpg"
 description: "The absolute best guide to home automation in 2018."
 ---
 
