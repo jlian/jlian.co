@@ -1,6 +1,6 @@
 ---
 date: 2015-05-20T20:07:29-08:00
-title: "Efficient Animation With MATLAB"
+title: "Efficient animation with MATLAB"
 description: "A guide to fast, flexible animation techniques in MATLAB"
 tags: [MATLAB, thesis]
 ---

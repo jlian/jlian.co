@@ -1,5 +1,5 @@
 ---
-title:  "Deal with HomeBridge Crashing"
+title:  "Deal with HomeBridge crashing"
 date: 2018-02-25T19:30:35-05:00
 tags: []
 featured_image: ""

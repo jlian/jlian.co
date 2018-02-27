@@ -1,5 +1,5 @@
 ---
-title:  "Get Reliable Connection with your HomeKit Devices"
+title:  "Get reliable connection with your HomeKit devices"
 date: 2018-02-25T19:33:06-05:00
 tags: []
 featured_image: ""
