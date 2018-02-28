@@ -2,7 +2,6 @@
 title: "About"
 date: 2018-02-21T20:59:39-08:00
 featured_image: '/images/hoian.jpg'
-draft: true
 ---
 
 I am originally from [Xiamen, China](http://en.wikipedia.org/wiki/Xiamen). I moved to Vancouver in 2004 and went to Shawnigan Lake School on Vancouver Island. 
