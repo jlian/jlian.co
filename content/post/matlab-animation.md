@@ -17,7 +17,7 @@ I used animation to help me visualize some of the work I did for my [honours the
 
 Say you want to animate a particle trajectory (position vs time), the most obvious way would be to use `plot()` in a `for` loop, kind of like this:
 
-```matlab
+{{< highlight octave >}}
 % Animation loop
 for i = 1:totalFrames
 	% Compute the necessary data
@@ -26,7 +26,7 @@ for i = 1:totalFrames
 	% Plot the result of the computation
 	plot(timeFrame(i), particlePosition(i));
 end
-```
+{{< /highlight >}}
 
 If you've ever tried doing this you would notice that it does not scale well. Even if the plot is just a little bit complex this method becomes *very slow*, with lots of flashes of the figure window. Every time `plot()` is called MATLAB has to repeat a lot of unnecessary work.[^1] 
 
@@ -40,7 +40,7 @@ In [MathWorks' article on animation techniques](http://www.mathworks.com/help/ma
 
 Instead of using `plot()`, the `set()` function skips a lot of unnecessary work, making it more efficient. An implementation example would look like this:
 
-```
+{{< highlight octave >}}
 % Initialize the plot
 h = plot(timeFrame(1), particlePosition(1));
 
@@ -53,10 +53,9 @@ for i = 2:totalFrames
 	set(h, 'XData', timeFrame(i));
 	set(h, 'YData', particlePosition(i));
 end
-```
+{{< /highlight >}}
 
 **Note:** Sometimes, especially if your animation update command is after complicated computation, you need to use `drawnow` to force the animation to occur in real time.
-{: .notice}
 
 ## A Quick Example
 
@@ -67,7 +66,9 @@ I wrote a simple script that uses this technique to animate a particle in a sine
 	<figcaption>A particle with sine trajectory</figcaption>
 </figure>
 
-<a markdown="0" href="{{ site.url }}Animate.m" class="btn">Download Animate.m</a>
+Full source:
+
+{{< gist jlian 93a88bc7ad324e4c0c798cb82c5fa1d2 >}}
 
 [^2]: This GIF is 60 FPS.
 
@@ -79,7 +80,7 @@ It turns out that animating multiple trajectories in stored one variable[^3] wit
 
 [^3]: Because of the way `ode45` worked, it was most convenient this way.
 
-```
+{{< highlight octave >}}
 % Initialize the trajectories
 particlePosition = zeros(randi(5),totalFrames)
 
@@ -97,7 +98,7 @@ for i = 2:totalFrames
 	set(h, 'XData', timeFrame(i));
 	set(h, {'YData'}, num2cell(particlePosition(:,i)));
 end
-```
+{{< /highlight >}}
 
 Here, `particlePosition` contains up to five trajectories. Note the use of `num2cell` in setting `YData` is required for the animation to work properly because of the way graphics data are structured in MATLAB. 
 
@@ -113,7 +114,9 @@ You can download the other script to see how this can be implemented. It looks l
 	<figcaption>Three particles with different trajectories</figcaption>
 </figure>
 
-<a markdown="0" href="{{ site.url }}Animate2.m" class="btn">Download Animate2.m</a>
+Full source: 
+
+{{< gist jlian 58b7ddc6b013ba2564914eda4a94ec49 >}}
 
 # An Example from MathWorks
 
