@@ -1,7 +1,7 @@
 ---
 title:  "Deal with HomeBridge crashing"
-date: 2018-02-25T19:30:35-05:00
-tags: []
+date: 2018-02-16T19:30:35-05:00
+tags: [homekit, home automation, homebridge]
 featured_image: "/images/homebridge.jpg"
 description: "Revive your homebridge automatically"
 draft: true
