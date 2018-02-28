@@ -2,7 +2,7 @@
 title:  "Get reliable connection with your HomeKit devices"
 date: 2018-02-25T19:33:06-05:00
 tags: []
-featured_image: ""
+featured_image: "/images/home2.jpg"
 description: ""
 draft: true
 ---

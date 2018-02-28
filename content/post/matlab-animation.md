@@ -2,6 +2,7 @@
 date: 2015-05-20T20:07:29-08:00
 title: "Efficient animation with MATLAB"
 description: "A guide to fast, flexible animation techniques in MATLAB"
+featured_image: "/images/thesis.jpg"
 tags: [MATLAB, thesis]
 ---
 
