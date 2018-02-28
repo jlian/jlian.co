@@ -2,7 +2,7 @@
 date: 2015-05-24T20:07:29-08:00
 title: "Last day at robotics"
 tags: [LA Tech, frc]
-//featured_image: "/images/latech2.jpeg"
+featured_image: "/images/latech2.jpeg"
 ---
 
 In our last meeting for the 2014-2015 FRC season, I received this gift from the team.
