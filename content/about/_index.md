@@ -24,3 +24,20 @@ See my résumé [here](/resume/JohnLianCV.pdf).
 Send me a mail for whatever! I'd love to chat.
 
 {{< form-contact action="https://formspree.io/lianguanlun@gmail.com"  >}}
+
+# Testing for netlify
+
+<form name="contact" method="POST" netlify>
+  <p>
+    <label>Your Name: <input type="text" name="name"></label>   
+  </p>
+  <p>
+    <label>Your Email: <input type="email" name="email"></label>
+  </p>
+  <p>
+    <label>Message: <textarea name="message"></textarea></label>
+  </p>
+  <p>
+    <button type="submit">Send</button>
+  </p>
+</form>
