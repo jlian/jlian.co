@@ -15,9 +15,9 @@ In 2010, I moved to Montreal to for McGill University to study Mechanical Engine
 
 I now live in Seattle and am a PM at [Microsoft Azure](https://azure.microsoft.com/). Also, I've been volunteering at [FRC Team 1983 Skunkworks Robotics](https://skunkworks.wildapricot.org) as a mechanical design mentor.
 
-# Resume
+# Résumé
 
-See my resume [here](/resume/JohnLianCV.pdf).
+See my résumé [here](/resume/JohnLianCV.pdf).
 
 # Contact
 
