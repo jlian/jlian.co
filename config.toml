@@ -1,4 +1,4 @@
-baseURL = "https://jlian.co"
+baseURL = "jlian.co"
 languageCode = "en-us"
 title = "John Lian"
 theme = "ananke"
