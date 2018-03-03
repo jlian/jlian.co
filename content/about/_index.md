@@ -23,4 +23,4 @@ See my résumé [here](/resume/JohnLianCV.pdf).
 
 Send me a mail for whatever! I'd love to chat.
 
-{{< form-contact >}}
+{{< form-contact action="/about/success" >}}
