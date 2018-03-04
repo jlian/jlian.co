@@ -65,7 +65,7 @@ I don't have any evidence or sources but I believe having static IP addresses fo
 
 ### To get good wifi in an apartment building you have to use 5GHz
 
-Today, the 2.4GHz band in a most populated areas are almost unusable. There're too many competing routers for the 12 bands available[^1]. If your router is newer it's probably dual-band, and your device is probably then also smart enough to figure out to use the 5GHz band because it's less congested. Your wifi probably isn't terrible all the time.
+Today, the 2.4GHz band in most populated areas are almost unusable. There're too many competing routers for the 12 bands available[^1]. If your router is newer it's probably dual-band, and your device is probably then also smart enough to figure out to use the 5GHz band because it's less congested. Your wifi probably isn't terrible all the time.
 
 [^1]: What ends up happening is that since most routers are set to `channel = auto` they end up hopping from channel to channel, trying to get the lowest interference. But since everybody hops this way it becomes a game of musical chairs. The result is you're using a phone and suddenly your internet is slow. Your neighbor's router just decided to hop in your channel. Sup.
 
