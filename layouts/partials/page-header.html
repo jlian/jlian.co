@@ -12,11 +12,11 @@
         {{ partial "site-navigation.html" .}}
       </div>
 {{ else }}
-    <header>
-      <div class="bg-gold">
-        <div class="{{ .Site.Params.background_color_class | default "bg-black" }}">
-          {{ partial "site-navigation.html" . }}
-        </div>
+  <header>
+    <div class="bg-gold">
+      <div class="{{ .Site.Params.background_color_class | default "bg-black" }}">
+        {{ partial "site-navigation.html" . }}
+      </div>
 {{ end }}
       <div class="mw8 center pv4 pv5-l ph3 ph4-ns">
         <time class="f6 mb2 dib ttu tracked {{ $.Scratch.Get "text_color" }}" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
