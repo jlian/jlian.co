@@ -104,12 +104,11 @@ for i = 2:totalFrames
 end
 {{< /highlight >}}
 
-Here, `particlePosition` contains up to five trajectories. Note the use of `num2cell` in setting `YData` is required for the animation to work properly because of the way graphics data are structured in MATLAB. 
+Here, `particlePosition` contains up to five trajectories. Note the use of `num2cell` in setting `YData` is required for the animation to work properly because of the way graphics data are structured in MATLAB.
 
 **Note:** The`YData` you are setting must be a **column cell vector**. So if your data is structured such that each row represents a frame in the animation, you must transpose your data in `set()`.
-{: .notice}
 
-### Another quick wxample
+### Another quick example
 
 You can download the other script to see how this can be implemented. It looks like this:
 
