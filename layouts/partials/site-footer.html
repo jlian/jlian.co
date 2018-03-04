@@ -1,7 +1,11 @@
-<footer class="bg-near-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="{{ .Site.BaseURL }}" >
-    &copy; {{ now.Format "2006" }} {{ .Site.Title }}
-  </a>
+<footer class="bg-near-black bottom-0 w-100 pa3 pv3 ph3 ph4-ns" role="contentinfo">
+  <div class="flex-ns justify-between items-center center">
+    <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns" href="{{ .Site.BaseURL }}" >
+      &copy; {{ now.Format "2006" }} {{ .Site.Title }}
+    </a>
+    <div class="items-center dn-l">
+      {{ partial "social-follow.html" . }}
+    </div>
   </div>
 </footer>
+  
