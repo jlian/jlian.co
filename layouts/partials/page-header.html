@@ -3,14 +3,14 @@
 {{ $.Scratch.Add "text_color" "" }}
 
 {{ if $featured_image }}
-{{ $featured_image := (trim $featured_image "/") | absURL }}
-{{ $.Scratch.Set "transparency" "bg-black-50" }}
-{{ $.Scratch.Set "text_color" "white-80" }}
-<header class="cover bg-top" style="background-image: url('{{ $featured_image }}');">
-  <div class="bg-black-30">
-    <div>
-      {{ partial "site-navigation.html" .}}
-    </div>
+  {{ $featured_image := (trim $featured_image "/") | absURL }}
+  {{ $.Scratch.Set "transparency" "bg-black-50" }}
+  {{ $.Scratch.Set "text_color" "white-80" }}
+  <header class="cover bg-top" style="background-image: url('{{ $featured_image }}');">
+    <div class="bg-black-30">
+      <div>
+        {{ partial "site-navigation.html" .}}
+      </div>
 {{ else }}
     <header>
       <div class="bg-gold">
