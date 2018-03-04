@@ -33,7 +33,7 @@ At the same time, I focused on long-term sustainability of the team by installin
 
 ### Simulating a One-Dimensional Gas With Suspended Magnets
 
-I completed an honours mechanical engineering thesis under Prof. Andrew Higgins. It can be viewed [here](thesis.pdf) (PDF warning). As a part of the the thesis, three projects were completed - listed below.
+I completed an honours mechanical engineering thesis under Prof. Andrew Higgins. It can be viewed [here](thesis.pdf) (PDF warning). As a part of the thesis, three projects were completed - listed below.
 
 #### MATLAB Particle Tracker
 
@@ -49,7 +49,7 @@ With the help of open-source algorithms, I developed a user-friendly MATLAB appl
 
 #### Magnets Suspension Device
 
-We were able to suspend magnets using a air-bearing mechanism. This allowed free magnetic interaction without friction - a key requirement for the success of the study.
+We were able to suspend magnets using an air-bearing mechanism. This allowed free magnetic interaction without friction - a key requirement for the success of the study.
 
 <figure>
 	<a href="/images/device.png"><img src="/images/device.png"></a>
