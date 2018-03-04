@@ -14,7 +14,7 @@ At the same time, I focused on long-term sustainability of the team by installin
 
 #### *Ethel*
 
-*Ethel* competed in the game [*Aerial Assist*](http://www.usfirst.org/roboticsprograms/frc/2014-game). It can score in the both the high goal and and low goal reliably with its high-torque intake roller, pneumatic lifter, and spring-loaded launcher. 
+*Ethel* competed in the game [*Aerial Assist*](http://www.usfirst.org/roboticsprograms/frc/2014-game). It can score in both the high goal and and low goal reliably with its high-torque intake roller, pneumatic lifter, and spring-loaded launcher. 
 
 <figure>
 	<a href="/images/ethel.jpg"><img src="/images/ethel.jpg"></a>
