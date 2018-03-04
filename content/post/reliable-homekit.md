@@ -6,7 +6,7 @@ featured_image: "/images/home2.jpg"
 description: "Wow, I'd never thought I would stop seeing \"not responding\""
 ---
 
-I've had pretty good experiences with HomeKit with Philips Hue and Lutron Caseta. However, I noticed that standalone devices (ones that don't have hubs) would often show "not responding" in HomeKit. This post shows somethings that I learned trying to get all my devices to be reliable.
+I've had pretty good experiences with HomeKit with Philips Hue and Lutron Caseta. However, I noticed that standalone devices (ones that don't have hubs) would often show "not responding" in HomeKit. This post shows some things that I learned trying to get all my devices to be reliable.
 
 <!--more-->
 
