@@ -1,46 +1,37 @@
 {{ $featured_image := .Params.featured_image }}
+{{ $.Scratch.Add "transparency" "bg-black-90" }}
+{{ $.Scratch.Add "text_color" "" }}
+
 {{ if $featured_image }}
-  {{/* Trimming the slash and adding absURL make sure the image works no matter where our site lives */}}
-  {{ $featured_image := (trim $featured_image "/") | absURL }}
-  <header class="cover bg-top" style="background-image: url('{{ $featured_image }}');">
-    <div class="bg-black-30">
+{{ $featured_image := (trim $featured_image "/") | absURL }}
+{{ $.Scratch.Set "transparency" "bg-black-50" }}
+{{ $.Scratch.Set "text_color" "white-80" }}
+<header class="cover bg-top" style="background-image: url('{{ $featured_image }}');">
+  <div class="bg-black-30">
+    <div>
       {{ partial "site-navigation.html" .}}
+    </div>
+{{ else }}
+    <header>
+      <div class="bg-gold">
+        <div class="{{ .Site.Params.background_color_class | default "bg-black" }}">
+          {{ partial "site-navigation.html" . }}
+        </div>
+{{ end }}
       <div class="mw8 center pv4 pv5-l ph3 ph4-ns">
-        <time class="f6 mb2 dib ttu tracked white-80" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+        <time class="f6 mb2 dib ttu tracked {{ $.Scratch.Get "text_color" }}" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
           {{ .Date.Format "January 2, 2006" }}
         </time>
         <h1 class="f2 f1-m f-headline-l measure-narrow lh-title mv0">
-          <span class="bg-black-50 lh-copy white pa1 tracked-tight sans-serif">
+          <span class="{{ $.Scratch.Get "transparency" }} lh-copy white pa1 tracked-tight sans-serif">
             {{ .Title | default .Site.Title }}
           </span>
         </h1>
         {{ with .Params.description  }}
-          <h2 class="f5 f4-m f3-l fw4 i white-80">
+          <h2 class="f5 f4-m f3-l fw4 i {{ $.Scratch.Get "text_color" }}">
             {{ . }}
           </h2>
         {{ end }}
       </div>
     </div>
   </header>
-{{ else }}
-  <header class="bg-gold">
-      <div class="{{ .Site.Params.background_color_class | default "bg-black" }}">
-        {{ partial "site-navigation.html" . }}
-      </div>
-      <div class="mw8 center pv4 pv5-l ph3 ph4-ns">
-        <time class="f6 mb2 dib ttu tracked" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">          
-          {{ .Date.Format "January 2, 2006" }}
-        </time>
-        <h1 class="f2 f1-m f-headline-l measure-narrow lh-title mv0">
-          <span class="bg-black-90 lh-copy white pa1 tracked-tight sans-serif">
-            {{ .Title | default .Site.Title }}
-          </span>
-        </h1>
-        {{ with .Params.description  }}
-          <h2 class="f5 f4-m f3-l fw4 i">
-            {{ . }}
-          </h2>
-        {{ end }}
-      </div>
-    </header>
-{{ end }}
