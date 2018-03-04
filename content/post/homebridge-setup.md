@@ -10,7 +10,7 @@ description: "Revive your homebridge automatically"
 
 <!--more-->
 
-# Use systemmd to keep Homebridge always running
+## Use systemmd to keep Homebridge always running
 
 To get Homebridge to start automatically on boot and restart on crashes, check out [these instructions from Tim](https://timleland.com/setup-homebridge-to-start-on-bootup/). After you get `systemmd` set up, always go to `/var/homebridge` to edit your `config.json`.
 
@@ -22,7 +22,7 @@ sudo journalctl -fexu homebridge
 
 From [here](https://serverfault.com/questions/738547/centos-7-systemctl-no-feedback-or-status-output).
 
-# Set up a web interface to quickly check status
+## Set up a web interface to quickly check status
 
 To set up a cool web interface for monitoring your homebridge status, check out [homebridge-config-ui](https://www.npmjs.com/package/homebridge-config-ui).
 

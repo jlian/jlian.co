@@ -8,7 +8,7 @@ description: "The absolute best guide to home automation money can buy."
 
 Since moving to Seattle I got increasingly into the idea of having my home automated. I know that there's a lot of hate of the internet (see Internet of Shit) but, in my experience, home automation isn't just a dream in 2018. It's pretty expensive and not everything works as smoothly as you'd like, but if you're willing to put in the work (and money!) you'd be able to achieve some pretty cool results.
 
-# Where We Are and How We Got Here
+## Where We Are and How We Got Here
 
 - Was in bed and was like wow I wish I didn't have to get up to turn off the lights
 - Hmm I've heard of Hue Lights before I wonder if that's any good
@@ -16,7 +16,7 @@ Since moving to Seattle I got increasingly into the idea of having my home autom
 - Probably because it's too much friction to turn it on
 - Decided to look into Hue Lights to begin with
 
-## Lamps
+### Lamps
 
 - Bought the Hue starter kit because I wanted also coloured bulbs
 - Installed them in my bedroom and achieved the first scenario
@@ -26,7 +26,7 @@ Since moving to Seattle I got increasingly into the idea of having my home autom
 - Realized that there's much more to this
 - Just lamps doesn't do anything other than automated colouring
 
-## Apple TV
+### Apple TV
 
 - The story is to have my TV and Apple TV turn on when I get home, so that I actually start watching my TV instead just being on my phone
 - I know this sounds incredibly first world problems
@@ -39,7 +39,7 @@ Since moving to Seattle I got increasingly into the idea of having my home autom
 - Or if it goes to sleep on its own
 - Future work to fix and state detection
 
-## Door Lock
+### Door Lock
 
 - Story: no longer have to carry keys, auto unlock when I'm near
 - Originally wanted to build my own lock with servo
@@ -49,7 +49,7 @@ Since moving to Seattle I got increasingly into the idea of having my home autom
 - Unblock on approach is possible via HomeKit hack
 - Link to other blog
 
-## Light Switches on the Wall
+### Light Switches on the Wall
 
 - To realize the story of being able to never use the wall switches
 - Figure out if you have ground wires or not, if not you're stuck with Lutron Caseta
@@ -57,39 +57,39 @@ Since moving to Seattle I got increasingly into the idea of having my home autom
 - Installation pretty easy
 - Multi switch is possible via Pico remote
 
-## Shouting Commands
+### Shouting Commands
 
 - Tapping on my phone is too hard and hostile to guests, they should be able to control as well
 - Bought Google Home Mini - it's pretty good
 
-## Vacuum
+### Vacuum
 
 - I want to very rarely vacuum and still have clean floor
 - Also want to be able to remotely start and see progress
 - Bought Xiaomi vacuum, can be automated
 - Needed to hack and get token
 
-## Building Buzzer
+### Building Buzzer
 
-# Principles and "Engineering Process"
+## Principles and "Engineering Process"
 
-## Choosing the Platform
+### Choosing the Platform
 
 - HomeKit + HomeBridge
 - Google Home
 - Alexa
 
-## Prioritized Backlog
+### Prioritized Backlog
 
-## "You Should Never Have to Adapt to Technology" and Observing Your Customers
+### "You Should Never Have to Adapt to Technology" and Observing Your Customers
 
-# Future Work
+## Future Work
 
-## Thermostat
+### Thermostat
 
-## Blinds
+### Blinds
 
-## Automatic Music
+### Automatic Music
 
-## Coffee
+### Coffee
 

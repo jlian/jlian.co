@@ -17,7 +17,7 @@ This is what I had in the end:
 	<figcaption>Shockwave created by a driving piston in a one-dimensional nonlinear lattice</figcaption>
 </figure>
 
-# The "easy" way
+## The "easy" way
 
 Say you want to animate a particle trajectory (position vs time), the most obvious way would be to use `plot()` in a `for` loop, kind of like this:
 
@@ -36,7 +36,7 @@ If you've ever tried doing this you would notice that it does not scale well. Ev
 
 [^1]: This is no longer the case after R2014b.
 
-# A better method
+## A better method
 
 In [MathWorks' article on animation techniques](http://www.mathworks.com/help/matlab/creating_plots/animation-techniques.html), we can see that they recommend 
 
@@ -61,7 +61,7 @@ end
 
 **Note:** Sometimes, especially if your animation update command is after complicated computation, you need to use `drawnow` to force the animation to occur in real time.
 
-## A quick example
+### A quick example
 
 I wrote a simple script that uses this technique to animate a particle in a sine trajectory. It should look like this:[^2]
 
@@ -76,7 +76,7 @@ Full source:
 
 [^2]: This GIF is 60 FPS.
 
-# Animating multiple trajectories
+## Animating multiple trajectories
 
 I ran into some problems when I needed to animate *variable* number of trajectories. I wanted to visualize how changing the number of particles in my system changed the trajectories, but MATLAB was giving me errors when I used the `set()` method. 
 
@@ -109,7 +109,7 @@ Here, `particlePosition` contains up to five trajectories. Note the use of `num2
 **Note:** The`YData` you are setting must be a **column cell vector**. So if your data is structured such that each row represents a frame in the animation, you must transpose your data in `set()`.
 {: .notice}
 
-## Another quick wxample
+### Another quick wxample
 
 You can download the other script to see how this can be implemented. It looks like this:
 
@@ -122,6 +122,6 @@ Full source:
 
 {{< gist jlian 58b7ddc6b013ba2564914eda4a94ec49 >}}
 
-# An example from MathWorks
+## An example from MathWorks
 
 I learned a lot from MathWorks' animation example here: <https://www.mathworks.com/examples/matlab/4020-animation>, including how to export as GIFs.
