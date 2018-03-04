@@ -6,7 +6,7 @@ featured_image: '/images/hoian.jpg'
 
 I am originally from [Xiamen, China](http://en.wikipedia.org/wiki/Xiamen). I moved to Vancouver in 2004 and went to Shawnigan Lake School on Vancouver Island.
 
-In 2010, I moved to Montreal to for McGill University to study Mechanical Engineering, where I:
+In 2010, I moved to Montreal for McGill University to study Mechanical Engineering, where I:
 
 - Interned at [Bombardier](http://commercialaircraft.bombardier.com/en/cseries.html) and [Suncor](http://www.suncor.com)
 - Played in the [McGill Fight Band](http://www.fightband.com)
