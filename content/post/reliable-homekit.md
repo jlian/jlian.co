@@ -75,7 +75,7 @@ I haven't found any hub-less HomeKit devices that don't use 2.4GHz band for wifi
 
 [^2]: See [exhibit 1](https://www.koogeek.com/p-p1.html) from Koogeek, [exhibit 2](http://a.co/cvCLoSz) from iDevices, and [exhibit 3](http://support.august.com/customer/en/portal/articles/2167876-setting-up-august-connect?b_id=10919&) from August.
 
-However, this does mean that your phone and laptop (5GHz) are going to be one different bands than your HomeKit devices (2.4GHz) as many modern routers support dual-band wifi.
+However, this does mean that your phone and laptop (5GHz) are going to be on different bands than your HomeKit devices (2.4GHz) as many modern routers support dual-band wifi.
 
 ### Bonjour services can sometimes work poorly across bands
 
