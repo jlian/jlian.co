@@ -6,7 +6,7 @@
   {{ $featured_image := (trim $featured_image "/") | absURL }}
   {{ $.Scratch.Set "transparency" "bg-black-50" }}
   {{ $.Scratch.Set "text_color" "white-80" }}
-  <header class="cover bg-top" style="background-image: url('{{ $featured_image }}');">
+  <header class="cover bg-top" style="background: url('{{ $featured_image }}') center;">
     <div class="bg-black-30">
       <div>
         {{ partial "site-navigation.html" .}}
