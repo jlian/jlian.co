@@ -1,7 +1,4 @@
 {{ $icon_size := "28px" }}
-{{ if .Site.Params.custom_css }}
-    <link rel="stylesheet" href="{{ .Site.Params.custom_css }}" type="text/css">
-{{ end }}
 <nav class="pv3 ph3 ph4-ns" role="navigation">
   <div class="flex-ns justify-between items-center center">
     <a href="/" class="ink-transition personal link dib z-999 pt3 pt0-ns mr2">
@@ -11,7 +8,7 @@
       {{ if .Site.Menus.main }}
         <ul class="pl0 mv3 mr3-l">
           {{ range .Site.Menus.main }}
-          <li class="list f4 f3-ns fw4 dib pr3">
+          <li class="list f4 f3-ns fw4 dib pr3 tracked-tight">
             <a class="hover-white no-underline white-90" href="{{ .URL }}" title="{{ .Name }} page">
               {{ .Name }}
             </a>

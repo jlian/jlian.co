@@ -1,0 +1,13 @@
+{{ define "main" }}
+  <article class="pa3 pa4-ns nested-copy-line-height nested-img">
+    {{ $section := .Paginate (where .Data.Pages "Section" .Section) }}
+    <section class="flex-ns flex-wrap justify-around mt4 mw8-l center">
+      {{ range  $section.Pages }}
+        <div class="relative w-100 w-30-l mb5-l">
+          {{ .Render "summary-with-image" }}
+        </div>
+      {{ end }}
+    </section>
+    {{ template "_internal/pagination.html" . }}
+  </article>
+{{ end }}
