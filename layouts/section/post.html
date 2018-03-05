@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <article class="pa4 nested-copy-line-height nested-img">
+  <article class="pa3 nested-copy-line-height nested-img">
     {{ $section := .Paginate (where .Data.Pages "Section" .Section) }}
     <section class="flex-ns flex-wrap justify-around mt4 mw8-l center">
       {{ range  $section.Pages }}
