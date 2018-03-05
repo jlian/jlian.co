@@ -1,6 +1,6 @@
 {{ define "main" }}
 <article class="cf pa3 pa4-m pa4-l">
-  <div class="measure-wide-ns center lh-copy f5 f4-l nested-copy-line-height nested-links nested-img dark-gray">
+  <div class="measure-wide-ns center lh-copy {{ $.Param "text_size"  | default "f5 f4-l"}} nested-copy-line-height nested-links nested-img dark-gray">
     {{ .Content }}
   </div>
 </article>
