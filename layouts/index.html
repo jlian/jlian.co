@@ -1,5 +1,5 @@
 {{ define "main" }}
-<article class="cf pa3 pa4-m pa4-l">
+<article class="cf ma3 ma4-ns">
   <div class="measure-wide-ns center lh-copy {{ $.Param "text_size"  | default "f5 f4-l"}} nested-copy-line-height nested-links nested-img dark-gray">
     {{ .Content }}
   </div>
@@ -14,17 +14,12 @@
     {{/* Derive the section name  */}}
     {{ $section_name := index (.Site.Params.mainSections) 0 }}
 
-    <div class="pa3 pa4-ns w-100 mw7 center">
+    <div class="ma3 ma4-ns w-100 measure-wide-ns center {{ $.Param "text_size"  | default "f5 f4-l"}}">
       {{/* Use $section_name to get the section title. Use "with" to only show it if it exists */}}
-       {{ with .Site.GetPage "section" $section_name }}
-          <h1 class="flex-none">
-            Recent {{ .Title }}
-          </h1>
-        {{ end }}
 
       {{ $n_posts := $.Param "recent_posts_number" | default 3 }}
 
-      <section class="w-100 mw8">
+      <section class="w-100">
         {{/* Range through the first $n_posts items of the section */}}
         {{ range (first $n_posts $section) }}
           <div class="relative w-100 mb2">
