@@ -25,6 +25,6 @@ enableRobotsTXT = true
   linkedin = "https://www.linkedin.com/in/jlian1/"
   background_color_class = "bg-black"
   body_classes = "sans-serif"
-  text_size = "f5 f4-l"
+  text_size = "fw3 f5 f4-l"
   featured_image = "/images/seattle.jpg"
   recent_posts_number = 3
