@@ -10,8 +10,6 @@ I've had pretty good experiences with HomeKit with Philips Hue and Lutron Caseta
 
 <!--more-->
 
-{{< figure src="/images/router.png" >}}
-
 ## Disable your router's "advanced features"
 
 For me, the root cause of the issue was that my router ([ASUS RT-AC88U](http://a.co/16d0YZQ)) was restricting proper communication between the two (2.4GHz and 5GHz) wifi bands. [This post](http://www.seriouslytrivial.com/2017/11/17/asus-rt-ac88u-wifi-and-airprint-wireless-printer-problem-solution/) led me to the eventual solution:
@@ -62,6 +60,8 @@ I don't have any evidence or sources but I believe having static IP addresses fo
 ## Why the problem is almost certainly with your router
 
 *But, but - my router is [almost $300](http://a.co/16d0YZQ)!!* That's what I said too. It turns out that there are a few factors that make it hard for HomeKit to be reliable on every wifi setup.
+
+{{< figure src="/images/router.png" >}}
 
 ### To get good wifi in an apartment building you have to use 5GHz
 

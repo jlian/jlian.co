@@ -3,7 +3,7 @@ title: "State of my home automation in 2018"
 date: 2018-02-21T20:07:29-08:00
 draft: true
 featured_image: "/images/home.jpg"
-description: "The absolute best guide to home automation money can buy."
+description: "The absolute best guide to home automation money can buy"
 ---
 
 Since moving to Seattle I got increasingly into the idea of having my home automated. I know that there's a lot of hate of the internet (see Internet of Shit) but, in my experience, home automation isn't just a dream in 2018. It's pretty expensive and not everything works as smoothly as you'd like, but if you're willing to put in the work (and money!) you'd be able to achieve some pretty cool results.
