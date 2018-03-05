@@ -14,7 +14,7 @@ code {
   display: inline-block;
   padding: 0 .25em;
   background: #F4F4F4;
-  border-radius: 4px;
+  border-radius: 0.25em;
 }
 
 pre code {
