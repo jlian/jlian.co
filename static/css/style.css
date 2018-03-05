@@ -13,8 +13,8 @@ code {
 :not(pre)>code {
   display: inline-block;
   padding: 0 .25em;
-  background: #EEEEEE;
-  border-radius: 2px;
+  background: #F4F4F4;
+  border-radius: 4px;
 }
 
 pre code {
