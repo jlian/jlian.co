@@ -14,7 +14,8 @@
 
     <label class="{{ $.Scratch.Get "labelClasses" }}" for="message">Message</label>
     <textarea id="message" name="message" class="{{ $.Scratch.Get "inputClasses" }} h4" aria-labelledby="message"></textarea>
-
-    <input class="db w-100 mv2 white pa3 bn hover-shadow hover-bg-blck bg-animate bg-black" type="submit" value="Send" />
+    <div class="shadow-hover">
+      <input class="db w-100 mv2 white pa3 bn hover-bg-black bg-animate bg-dark-gray" type="submit" value="Send" />
+    </div>
 
 </form>
