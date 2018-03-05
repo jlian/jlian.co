@@ -6,7 +6,7 @@
       {{ $featured_image := (trim $featured_image "/") | absURL }}
       <div class="mb3 pr3-m mb0-m w-100 w-40-m">
         <a href="{{.URL}}" class="db dim aspect-ratio aspect-ratio--16x9">
-          <div style="background:url({{ $featured_image }}) center;" class="img aspect-ratio--object cover" alt="image from {{ .Title }}"></div>
+          <div style="background: url('{{ $featured_image }}') center;" class="img aspect-ratio--object cover" alt="image from {{ .Title }}"></div>
         </a>
       </div>
     {{ end }}
