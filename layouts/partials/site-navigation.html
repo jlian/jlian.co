@@ -6,9 +6,9 @@
     </a>
     <div class="flex items-center">
       {{ if .Site.Menus.main }}
-        <ul class="pl0 mv3 mr3-l">
+        <ul class="pl0 mv3">
           {{ range .Site.Menus.main }}
-          <li class="list f4 f3-ns fw4 dib pr2 pr3-ns tracked-tight">
+          <li class="list f4 f3-ns fw4 dib pl2 pl3-ns tracked-tight">
             <a class="hover-white no-underline white-90" href="{{ .URL }}" title="{{ .Name }} page">
               {{ .Name }}
             </a>
@@ -16,9 +16,6 @@
           {{ end }}
         </ul>
       {{ end }}
-      <div class="dn dib-l"> 
-        {{ partial "social-follow.html" . }}
-      </div>
     </div>
   </div>
 </nav>
