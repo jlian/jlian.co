@@ -1,14 +1,14 @@
 {{ $icon_size := "28px" }}
 <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-ns justify-between items-center center">
-    <a href="/" class="ink-transition personal link dib z-999 pt3 pt0-ns mr2">
+  <div class="flex justify-between items-center center mw8">
+    <a href="/" class="ink-transition personal link dib z-999 mr2">
         {{ partial "svg/logo.svg" (dict "size" $icon_size) }}
     </a>
-    <div class="flex-l items-center">
+    <div class="flex items-center">
       {{ if .Site.Menus.main }}
         <ul class="pl0 mv3 mr3-l">
           {{ range .Site.Menus.main }}
-          <li class="list f4 f3-ns fw4 dib pr3 tracked-tight">
+          <li class="list f4 f3-ns fw4 dib pr2 pr3-ns tracked-tight">
             <a class="hover-white no-underline white-90" href="{{ .URL }}" title="{{ .Name }} page">
               {{ .Name }}
             </a>
