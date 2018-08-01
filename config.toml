@@ -27,4 +27,4 @@ enableRobotsTXT = true
   body_classes = "sans-serif"
   text_size = "fw3 f5 f4-l"
   featured_image = "/images/seattle.jpg"
-  recent_posts_number = 5
+  recent_posts_number = 2
