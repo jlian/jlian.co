@@ -1,5 +1,4 @@
 ---
-title: "John Lian"
 date: 2018-02-21T20:55:14-08:00
 featured_image: '/images/rainier.jpg'
 ---
