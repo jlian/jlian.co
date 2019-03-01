@@ -4,23 +4,23 @@ date: 2018-02-21T20:59:39-08:00
 featured_image: '/images/hoian.jpg'
 ---
 
-I am originally from [Xiamen, China](http://en.wikipedia.org/wiki/Xiamen). I moved to Vancouver in 2004 and went to Shawnigan Lake School on Vancouver Island.
+I'm a PM at [Microsoft Azure IoT](https://azure.microsoft.com/overview/iot/), where I try to figure out how to make monitoring/diagnostics/troubleshooting easier for IoT users.
 
-In 2010, I moved to Montreal for McGill University to study Mechanical Engineering, where I:
+Before Microsoft, I studied Mechanical Engineering at McGill University, where I:
 
 - Interned at [Bombardier](http://commercialaircraft.bombardier.com/en/cseries.html) and [Suncor](http://www.suncor.com)
 - Played in the [McGill Fight Band](http://www.fightband.com)
 - Co-founded [FRC Team 4955 LA Tech](http://www.frc4955.com) and served as lead mentor
 - Did research with [Prof. Andrew Higgins](https://www.mcgill.ca/mecheng/facultystaff/staff/andrewhiggins)
 
-I now live in Seattle and am a PM at [Microsoft Azure](https://azure.microsoft.com/). Also, I've been volunteering at [FRC Team 1983 Skunkworks Robotics](https://skunkworks.wildapricot.org) as a mechanical design mentor.
+Prior to that, our family moved to Vancouver in 2004, but we're originally from [Xiamen, China](http://en.wikipedia.org/wiki/Xiamen).
 
 # Résumé
 
-See my résumé [here](/resume/JohnLianCV.pdf).
+See my [résumé](/resume/JohnLianCV.pdf).
 
 # Contact
 
-Email me for whatever! I'd love to chat.
+If there's one thing I'm addicted to, it's emails.
 
 {{< form-contact >}}
