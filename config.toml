@@ -10,7 +10,7 @@ Paginate = 9
 googleAnalytics = ""
 enableRobotsTXT = true
 pygmentsCodefences = true
-pygmentsStyle = manni
+pygmentsStyle = "manni"
 
 [sitemap]
   changefreq = "monthly"
