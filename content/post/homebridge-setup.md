@@ -26,7 +26,7 @@ From [here](https://serverfault.com/questions/738547/centos-7-systemctl-no-feedb
 
 To set up a cool web interface for monitoring your homebridge status, check out [homebridge-config-ui](https://www.npmjs.com/package/homebridge-config-ui).
 
-{{< figure src="/images/homebridge.png" >}}
+![Homebridge config](/images/homebridge.png)
 
 Since you're now using `systemmd` with it, add this to your config:
 
