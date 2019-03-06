@@ -12,25 +12,22 @@ I used animation to help me visualize some of the work I did for my [honours the
 
 This is what I had in the end:
 
-<figure>
-	<a href="/matlab-animation/shock.gif"><img src="/matlab-animation/shock.gif"></a>
-	<figcaption>Shockwave created by a driving piston in a one-dimensional nonlinear lattice</figcaption>
-</figure>
+![Shockwave created by a driving piston in a one-dimensional nonlinear lattice](/matlab-animation/shock.gif)
 
 ## The "easy" way
 
 Say you want to animate a particle trajectory (position vs time), the most obvious way would be to use `plot()` in a `for` loop, kind of like this:
 
-{{< highlight octave >}}
+```octave
 % Animation loop
 for i = 1:totalFrames
-	% Compute the necessary data
-	particlePosition(i) = rand;
+  % Compute the necessary data
+  particlePosition(i) = rand;
 
-	% Plot the result of the computation
-	plot(timeFrame(i), particlePosition(i));
+  % Plot the result of the computation
+  plot(timeFrame(i), particlePosition(i));
 end
-{{< /highlight >}}
+```
 
 If you've ever tried doing this you would notice that it does not scale well. Even if the plot is just a little bit complex this method becomes *very slow*, with lots of flashes of the figure window. Every time `plot()` is called MATLAB has to repeat a lot of unnecessary work.[^1] 
 
@@ -44,20 +41,20 @@ In [MathWorks' article on animation techniques](http://www.mathworks.com/help/ma
 
 Instead of using `plot()`, the `set()` function skips a lot of unnecessary work, making it more efficient. An implementation example would look like this:
 
-{{< highlight octave >}}
+```octave
 % Initialize the plot
 h = plot(timeFrame(1), particlePosition(1));
 
 % Animation loop
 for i = 2:totalFrames
-	% Compute the necessary data
-	particlePosition(i) = rand;
+    % Compute the necessary data
+  particlePosition(i) = rand;
 
-	% Change the data in the plot
-	set(h, 'XData', timeFrame(i));
-	set(h, 'YData', particlePosition(i));
+  % Change the data in the plot
+  set(h, 'XData', timeFrame(i));
+  set(h, 'YData', particlePosition(i));
 end
-{{< /highlight >}}
+```
 
 **Note:** Sometimes, especially if your animation update command is after complicated computation, you need to use `drawnow` to force the animation to occur in real time.
 
@@ -65,10 +62,7 @@ end
 
 I wrote a simple script that uses this technique to animate a particle in a sine trajectory. It should look like this:[^2]
 
-<figure>
-	<a href="/matlab-animation/sine.gif"><img src="/matlab-animation/sine.gif"></a>
-	<figcaption>A particle with sine trajectory</figcaption>
-</figure>
+![A particle with sine trajectory](/matlab-animation/sine.gif)
 
 Full source:
 
@@ -84,7 +78,7 @@ It turns out that animating multiple trajectories in stored one variable[^3] wit
 
 [^3]: Because of the way `ode45` worked, it was most convenient this way.
 
-{{< highlight octave >}}
+```octave
 % Initialize the trajectories
 particlePosition = zeros(randi(5),totalFrames)
 
@@ -93,16 +87,16 @@ h = plot(timeFrame(1), particlePosition(:,1));
 
 % Animation loop
 for i = 2:totalFrames
-	% Compute the necessary data
-	for j = 1:size(particlePosition,1)
-		particlePosition(j,i) = rand;
-	end
+  % Compute the necessary data
+  for j = 1:size(particlePosition,1)
+    particlePosition(j,i) = rand;
+  end
 
-	% Change the data in the plot
-	set(h, 'XData', timeFrame(i));
-	set(h, {'YData'}, num2cell(particlePosition(:,i)));
+  % Change the data in the plot
+  set(h, 'XData', timeFrame(i));
+  set(h, {'YData'}, num2cell(particlePosition(:,i)));
 end
-{{< /highlight >}}
+```
 
 Here, `particlePosition` contains up to five trajectories. Note the use of `num2cell` in setting `YData` is required for the animation to work properly because of the way graphics data are structured in MATLAB.
 
@@ -112,12 +106,9 @@ Here, `particlePosition` contains up to five trajectories. Note the use of `num2
 
 You can download the other script to see how this can be implemented. It looks like this:
 
-<figure>
-	<a href="/matlab-animation/sine2.gif"><img src="/matlab-animation/sine2.gif"></a>
-	<figcaption>Three particles with different trajectories</figcaption>
-</figure>
+![Three particles with different trajectories](/matlab-animation/sine2.gif)
 
-Full source: 
+Full source:
 
 {{< gist jlian 58b7ddc6b013ba2564914eda4a94ec49 >}}
 

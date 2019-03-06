@@ -16,9 +16,9 @@ To get Homebridge to start automatically on boot and restart on crashes, check o
 
 To check the logs, I'd recommend:
 
-{{< highlight bash >}}
+```bash
 sudo journalctl -fexu homebridge
-{{< /highlight >}}
+```
 
 From [here](https://serverfault.com/questions/738547/centos-7-systemctl-no-feedback-or-status-output).
 
@@ -30,13 +30,13 @@ To set up a cool web interface for monitoring your homebridge status, check out 
 
 Since you're now using `systemmd` with it, add this to your config:
 
-{{< highlight json >}}
+```json
 {
     "platform": "config",
     "port": 8080,
     "log": "/var/log/daemon.log",
     "restart": "sudo systemctl restart homebridge"
 }
-{{< /highlight >}}
+```
 
 The log view might take a while to show anything, but the config should be right.
