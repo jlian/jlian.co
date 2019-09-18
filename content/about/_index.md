@@ -9,7 +9,7 @@ I'm a PM at [Microsoft Azure IoT](https://azure.microsoft.com/overview/iot/), wh
 Before Microsoft, I studied Mechanical Engineering at McGill University, where I:
 
 - Interned at [Bombardier](http://commercialaircraft.bombardier.com/en/cseries.html) and [Suncor](http://www.suncor.com)
-- Played in the [McGill Fight Band](http://www.fightband.com)
+- Played in the [McGill Fight Band](https://mcgillathletics.ca/sports/2012/12/6/1206121625.aspx)
 - Co-founded [FRC Team 4955 LA Tech](http://www.frc4955.com) and served as lead mentor
 - Did research with [Prof. Andrew Higgins](https://www.mcgill.ca/mecheng/facultystaff/staff/andrewhiggins)
 
