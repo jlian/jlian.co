@@ -16,3 +16,31 @@ code {
   background: #F4F4F4;
   border-radius: 0.25em;
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #333;
+    color: #e4e4e4 !important;
+  }
+  .nested-links a {
+    color: #77b2e3;
+  }
+  img {
+    filter: grayscale(30%);
+  }
+  .black{
+    color:#e4e4e4;
+  }
+  .near-black{
+      color:#e4e4e4;
+  }
+  .dark-gray{
+      color:#e4e4e4;
+  }
+  .mid-gray {
+      color:#e4e4e4;
+  }
+  :not(pre)>code {
+    background: rgb(7, 7, 7);
+  }
+}
