@@ -4,7 +4,7 @@ date: 2018-02-21T20:59:39-08:00
 featured_image: '/images/hoian.jpg'
 ---
 
-I'm a PM at [Microsoft Azure IoT](https://azure.microsoft.com/overview/iot/), where I try to figure out how to make monitoring/diagnostics/troubleshooting easier for IoT users.
+I'm a PM at [Microsoft Azure IoT](https://azure.microsoft.com/overview/iot/), mostly working on [IoT Hub](https://azure.microsoft.com/services/iot-hub).
 
 Before Microsoft, I studied Mechanical Engineering at McGill University, where I:
 
