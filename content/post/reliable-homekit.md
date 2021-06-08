@@ -6,6 +6,8 @@ featured_image: "/images/home2.jpg"
 description: "Wow, I'd never thought I would stop seeing \"No Response\""
 ---
 
+*Update June 2021: people felt the methods in this post are [too extreme](https://www.reddit.com/r/HomeKit/comments/b72vii/how_i_completely_fixed_not_responding/). Fortunately, ASUS has since published [a new support article on this topic](https://www.asus.com/support/FAQ/1042475/), and I've heard that it works better. I haven't tried it myself since I changed to eero (which works perfect with HomeKit) more than a year ago. Original post below.*
+
 I've had pretty good experiences with HomeKit with Philips Hue and Lutron Caseta. However, I noticed that standalone devices (ones that don't have hubs) would often show "No Response" in HomeKit. This post shows some things that I learned trying to get all my devices to be reliable.
 
 <!--more-->
