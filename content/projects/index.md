@@ -2,6 +2,8 @@
 title: "Projects"
 date: 2018-02-21T20:59:56-08:00
 featured_image: '/images/work.jpg'
+menu:
+  main:
 ---
 
 ### Program Coordinator at FRC Team 4955 LA Tech

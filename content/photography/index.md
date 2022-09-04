@@ -3,6 +3,9 @@ title: "Pics"
 #description: "Some examples of my photography work."
 tags: [images, photography]
 featured_image: "/images/cambodia.jpg"
+menu:
+  main:
+    weight: 2
 ---
 
 I enjoy taking photos for my own viewing. I'm also a strong believer in creative commons and sharing my work for everyone.

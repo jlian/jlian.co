@@ -17,15 +17,18 @@ pygmentsCodefences = true
   filename = "sitemap.xml"
 
 [params]
-  custom_css = "/css/style.css"
+  custom_css = ["custom.css"]
   favicon = "/images/favicon.ico"
+  site_logo = "/svg/logo.svg"
   description = "John Lian's personal website"
   twitter = "https://twitter.com/jlian"
   instagram = "https://www.instagram.com/__jlian__/"
   github = "https://github.com/jlian"
   linkedin = "https://www.linkedin.com/in/jlian1/"
   background_color_class = "bg-black"
+  cover_dimming_class = "bg-black-20"
   body_classes = "sans-serif"
+  post_content_classes = "sans-serif"
   text_size = "fw3 f5 f4-l"
   featured_image = "/images/seattle.jpg"
   recent_posts_number = 4
