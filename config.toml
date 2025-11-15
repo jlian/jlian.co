@@ -17,7 +17,7 @@ pygmentsCodefences = true
   filename = "sitemap.xml"
 
 [params]
-  custom_css = "/css/style.css"
+  custom_css = ["css/style.css"]
   favicon = "/images/favicon.ico"
   description = "John Lian's personal website"
   twitter = "https://twitter.com/jlian"
@@ -29,3 +29,8 @@ pygmentsCodefences = true
   text_size = "fw3 f5 f4-l"
   featured_image = "/images/seattle.jpg"
   recent_posts_number = 4
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
