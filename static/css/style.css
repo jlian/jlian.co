@@ -6,15 +6,47 @@
   fill: #E7040F;
 }
 
+@media screen and (min-width: 30em) {
+  /* allow posts to be wider than Tachyons' default 34rem */
+  .measure-wide-ns {
+    max-width: 45rem;
+  }
+}
+
 code {
-  font-size: 0.75em;
+  font-size: 0.85em;
 }
 
 :not(pre)>code {
   display: inline-block;
   padding: 0 .25em;
-  background: #F4F4F4;
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
   border-radius: 0.25em;
+}
+
+.highlight {
+  margin: 0.5rem 0;
+}
+
+.highlight pre {
+  margin: 0;
+  padding: 1rem;
+  border-radius: 0.35rem;
+  border: 1px solid #e1e4e8;
+  background: #f6f8fa !important;
+  color: #24292e !important;
+  overflow-x: auto;
+}
+
+.highlight pre code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.85em;
+  line-height: 1.5;
+  display: block;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -44,6 +76,13 @@ code {
     background-color: #272822;
   }
   :not(pre)>code {
-    background: rgb(7, 7, 7);
+    background: rgb(17, 17, 17);
+    border-color: #2d2d2d;
+    color: #e4e4e4;
+  }
+  .highlight pre {
+    background: #0f1117 !important;
+    color: #f8f8f2 !important;
+    border-color: #2d2d2d;
   }
 }

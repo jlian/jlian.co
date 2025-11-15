@@ -21,12 +21,12 @@ pygmentsCodefences = true
   favicon = "/images/favicon.ico"
   description = "John Lian's personal website"
   twitter = "https://twitter.com/jlian"
-  instagram = "https://www.instagram.com/__jlian__/"
+  instagram = "https://www.instagram.com/jlian.irl/"
   github = "https://github.com/jlian"
   linkedin = "https://www.linkedin.com/in/jlian1/"
   background_color_class = "bg-black"
   body_classes = "sans-serif"
-  text_size = "fw3 f5 f4-l"
+  text_size = "fw3 f5 f5-l"
   featured_image = "/images/seattle.jpg"
   recent_posts_number = 4
 
@@ -34,3 +34,6 @@ pygmentsCodefences = true
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+  [markup.highlight]
+    noClasses = true
+    style = "dracula"
