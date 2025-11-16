@@ -8,9 +8,7 @@ featured_image: "/images/posts/hdmi-cec/featured.jpg"
 
 For years I treated HDMI-CEC like a house spirit: sometimes helpful, mostly temperamental, never fully understood. My living-room stack is straightforward: Samsung TV on [ARC](https://en.wikipedia.org/wiki/HDMI#ARC_and_eARC), Denon AVR-X1700H hidden in a closet, Apple TV plus a stack of consoles hanging off the receiver, and a [Raspberry Pi 4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) already doing [Homebridge](https://homebridge.io/) duty. Apple TV behaves like demo hardware from Cupertino; every console behaves like it missed the last week of CEC school. They wake the TV, switch the input, then leave the Denon asleep so I’m back to toggling audio outputs by hand.
 
-![Placeholder – wide “hero” shot for the featured image: living room with TV, consoles, and AVR visible.](PLACEHOLDER: wide hero photo for featured image.)
-
-![Placeholder – capture the “messy media closet” showing the Denon, Pi, and HDMI cabling.](PLACEHOLDER: shoot a wide photo of the closet wiring once tidied.)
+![My media closet where all the consoles are](/images/posts/hdmi-cec/media-closet.jpg)
 
 Rewiring wasn’t an option and disabling CEC wasn’t politically viable (people like Apple TV’s magic), so the question became: can I fix it with the gear I own, ideally with one more $5 micro-HDMI cable? The short version: yes. The Pi now sits quietly on the HDMI bus, watching for consoles to announce themselves and issuing the single command Samsung + Denon should have exchanged on their own.
 
@@ -104,7 +102,7 @@ TRAFFIC: [...] >> bf:82:36:00
 
 reads as: logical `B` (PS5) broadcast Active Source (`0x82`) with physical address `3.6.0.0`. That’s the packet you expect any console to send when it wakes up.
 
-![Placeholder – take a close-up photo of the Pi plugged into the TV’s ARC HDMI input, HDMI adapters visible.](PLACEHOLDER: macro shot of Pi + adapter.)
+![Close-up photo of the Pi plugged into the TV’s ARC HDMI input, HDMI adapters visible](/images/posts/hdmi-cec/raspberry-pi-hdmi.jpg)
 
 There’s one more `cec-client` detail that’s surprisingly under-documented: **log levels**. The enum in `libcec` looks like this:
 
@@ -170,7 +168,7 @@ tx 15:70:00:00
 
 …the Denon sprang to life and ARC anchored to the receiver even with only a console and TV powered on. That’s the whole trick: copy the **effect** of the secret Apple/Samsung/Denon dance with a single, documented CEC opcode.
 
-![Placeholder – capture a still of the TV OSD showing ARC staying on “Receiver” after waking a console.](PLACEHOLDER: photo of TV UI confirming receiver output.)
+![Photo of TV UI confirming receiver output](/images/posts/hdmi-cec/output.jpg)
 
 Here’s a simplified “good vs bad” handshake timeline:
 
@@ -532,12 +530,10 @@ sequenceDiagram
 
 Your job is to spot the missing step and teach the Pi to do it.
 
-![Placeholder – grab a diagram or whiteboard sketch showing the “good vs bad handshake” timeline.](PLACEHOLDER: capture hand-drawn timeline or diagram.)
-
 ## Where this leaves my setup
 
 Apple TV keeps doing its thing. PS5 or Switch now wake the TV, the helper nudges the Denon within half a second, and audio stays glued to the receiver. Latency is low enough that it feels native. The Pi sits in the closet pretending to be a slightly overqualified remote.
 
-![Placeholder – shoot a final glamour photo of the TV running a console, AVR input lights on, maybe a controller in frame.](PLACEHOLDER: lifestyle shot to close the piece.)
+![Picture of my TV and cat being comfortable](/images/posts/hdmi-cec/tv-and-cat.jpg)
 
 There’s probably a small cottage industry of “two-page CEC scripts” waiting to be written. If you adapt this trick for some other HDMI-CEC horror story, send me the packet traces—I’m collecting folklore.
