@@ -1,6 +1,6 @@
 {{ define "main" }}
-<article class="cf pa3">
-  <div class="measure-wide-ns mb5 center lh-copy {{ $.Param "text_size"  | default "f5 f4-l"}} nested-copy-line-height nested-links nested-img dark-gray">
+<article class="cf pa3 site-width">
+  <div class="measure-wide-ns mb5 lh-copy {{ $.Param "text_size"  | default "f5 f4-l"}} nested-copy-line-height nested-links nested-img dark-gray">
     {{ .Content }}
   </div>
 
@@ -14,7 +14,7 @@
     {{/* Derive the section name  */}}
     {{ $section_name := index (.Site.Params.mainSections) 0 }}
 
-    <div class="w-100 measure-wide-ns center {{ $.Param "text_size"  | default "f5 f4-l"}}">
+    <div class="w-100 measure-wide-ns {{ $.Param "text_size"  | default "f5 f4-l"}}">
       {{/* Use $section_name to get the section title. Use "with" to only show it if it exists */}}
       {{ $n_posts := $.Param "recent_posts_number" | default 3 }}
 

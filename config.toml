@@ -35,5 +35,5 @@ pygmentsCodefences = true
     [markup.goldmark.renderer]
       unsafe = true
   [markup.highlight]
-    noClasses = true
-    style = "dracula"
+    noClasses = false
+    style = "github"

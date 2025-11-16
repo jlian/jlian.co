@@ -4,12 +4,23 @@
 {{ end }}
 
 {{ define "main" }}
-  <div class="mt2 mw8 center">
-    <article class="cf pv4 ph3 ph4-ns">
+  {{ $toc := .TableOfContents }}
+  {{ $tocPlain := trim (plainify $toc) " \n\r\t" }}
+  {{ $hasToc := gt (len $tocPlain) 0 }}
+  <div class="site-width mt3 flex-ns">
+    <article class="w-100 {{ if $hasToc }}w-70-l{{ end }} pv4 pr4-l">
       <section class="measure-wide-ns nested-copy-line-height lh-copy {{ $.Param "text_size"  | default "f5 f4-l"}} nested-links nested-img dark-gray">
         {{ .Content }}
       </section>
       {{ partial "tags.html" . }}
     </article>
+    {{ if $hasToc }}
+    <aside class="dn db-l w-30-l pv4 pl4">
+      <div class="toc-container">
+        <div class="toc-heading f6 ttu tracked mv3">On this page</div>
+        {{ $toc }}
+      </div>
+    </aside>
+    {{ end }}
   </div>
 {{ end }}
