@@ -526,7 +526,7 @@ sequenceDiagram
   rect rgb(255,230,230)
     note over Src,AVR: Bad path
     Src->>TV: Active Source (0x82)
-    note over TV,AVR: No audio-mode negotiation; TV falls back to speakers
+        note over TV,AVR: No audio-mode negotiation, TV falls back to speakers
   end
 ```
 
