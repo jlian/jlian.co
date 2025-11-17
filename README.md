@@ -25,5 +25,6 @@ This repository uses [Dependabot](https://docs.github.com/en/code-security/depen
 
 - **GitHub Actions** - Updates to workflow actions (checked weekly)
 - **Git Submodules** - Updates to the Hugo theme (checked weekly)
+- **Dev Container Features** - Updates to Codespaces configuration (checked weekly)
 
 Configure Dependabot in `.github/dependabot.yml`.
