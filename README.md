@@ -7,3 +7,12 @@ New personal website built with Hugo. It's a replacement of my [old website](htt
 ## Hugo
 
 Build this with a `hugo` command. Tested with version 0.102.3.
+
+## Dependency Updates
+
+This repository uses [Dependabot](https://docs.github.com/en/code-security/dependabot) to automatically keep dependencies up to date. Dependabot will create pull requests for:
+
+- **GitHub Actions** - Updates to workflow actions (checked weekly)
+- **Git Submodules** - Updates to the Hugo theme (checked weekly)
+
+Configure Dependabot in `.github/dependabot.yml`.
