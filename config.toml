@@ -28,7 +28,7 @@ pygmentsCodefences = true
   body_classes = "sans-serif"
   text_size = "fw3 f5 f5-l"
   featured_image = "/images/seattle.jpg"
-  recent_posts_number = 4
+  recent_posts_number = 6
 
 [markup]
   [markup.goldmark]

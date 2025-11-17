@@ -22,7 +22,11 @@
         </a>
       </h1>
       <div class="nested-links f6 lh-copy nested-copy-line-height">
-        {{ .Summary  }}
+        {{ if .Description }}
+          {{ .Description | markdownify }}
+        {{ else }}
+          {{ .Summary }}
+        {{ end }}
       </div>
     </div>
   </div>

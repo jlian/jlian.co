@@ -70,7 +70,7 @@ code {
   font-size: 0.75rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: 0.5rem 1rem 0.25rem;
+  padding: 0.5rem 1rem 0.5rem;
   color: #6c6c6c;
   background: #edf2f7;
   border: 1px solid #e1e4e8;
@@ -82,9 +82,10 @@ code {
   border: 1px solid #d0d7de;
   background: #fff;
   color: #333;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border-radius: 0.5rem;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,6 +119,89 @@ code {
   border-color: #b91c1c;
 }
 
+.github-button {
+  background: #0f172a;
+  color: #fff !important;
+  border: 1px solid #0f172a;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.github-button:hover,
+.github-button:focus {
+  background: #111;
+  border-color: #111;
+  color: #fff !important;
+}
+
+/* post table styling */
+article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+
+article thead th {
+  background: #f6f8fa;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+}
+
+article th,
+article td {
+  border: 1px solid #e2e8f0;
+  padding: 0.6rem 0.75rem;
+}
+
+article tbody tr:nth-child(even) {
+  background: #fbfcfe;
+}
+
+article td:nth-child(1),
+article td:nth-child(4),
+article td:nth-child(5) {
+  text-align: right;
+}
+
+.pagination .page-link {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+  margin-right: 0.3rem;
+  color: #111;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.pagination .page-item.active .page-link {
+  background: #111;
+  color: #fff;
+}
+
+.pagination .page-link:hover,
+.pagination .page-link:focus {
+  background: #111;
+  color: #fff;
+}
+
+.social-link {
+  color: inherit;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.social-link svg path,
+.social-link svg {
+  fill: currentColor;
+  stroke: none;
+}
+
+.social-link:hover,
+.social-link:focus {
+  color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+
 .highlight pre {
   margin: 0;
   padding: 1rem;
@@ -126,7 +210,7 @@ code {
   border-top: 1px solid #e1e4e8;
   background: #f6f8fa !important;
   color: #24292e !important;
-  overflow-x: auto;
+  overflow: auto;
 }
 
 .highlight pre code {
@@ -146,9 +230,6 @@ code {
   }
   .nested-links a {
     color: #77b2e3;
-  }
-  img {
-    filter: grayscale(30%);
   }
   .black{
     color:#e4e4e4;
@@ -197,6 +278,17 @@ code {
     background: #2563eb;
     border-color: #2563eb;
   }
+  .github-button {
+    background: #f3f4f6;
+    color: #0f172a !important;
+    border-color: #f3f4f6;
+  }
+  .github-button:hover,
+  .github-button:focus {
+    background: #e5e7eb;
+    border-color: #e5e7eb;
+    color: #0f172a !important;
+  }
   .toc-container {
     color: #dee3f0;
   }
@@ -209,6 +301,45 @@ code {
   }
   .toc-container a.active {
     color: #93c5fd;
+  }
+  article thead th {
+    background: #1f2933;
+    color: #f8f8f2;
+  }
+  article th,
+  article td {
+    border-color: #2e3541;
+  }
+  article tbody tr:nth-child(even) {
+    background: #151a22;
+  }
+  .pagination .page-link {
+    border-color: #374151;
+    background: #111827;
+    color: #f3f4f6;
+  }
+  .pagination .page-item.active .page-link {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+  }
+  .pagination .page-link:hover,
+  .pagination .page-link:focus {
+    background: #1f2937;
+    color: #f3f4f6;
+  }
+  .social-link {
+    color: #f3f4f6;
+  }
+  .social-link:hover,
+  .social-link:focus {
+    color: #60a5fa;
+  }
+  .social-link svg *,
+  .social-link svg path,
+  .social-link svg use {
+    fill: currentColor !important;
+    stroke: none !important;
   }
 }
 

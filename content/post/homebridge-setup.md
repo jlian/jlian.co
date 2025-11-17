@@ -3,7 +3,7 @@ title:  "Deal with Homebridge crashing"
 date: 2018-02-16T19:30:35-05:00
 tags: [homekit, home automation, homebridge]
 featured_image: "/images/homebridge.jpg"
-description: "Revive your homebridge automatically"
+description: "Survival guide for when Homebridge faceplants every other day."
 ---
 
 [Homebridge](https://github.com/nfarina/homebridge) is a key part to my home automation setup. I run it on a Raspberry Pi (gen 1, pictured in header) and it allows me to integrate my TV, Apple TV, and robot vacuum into HomeKit. However, it does crash quite a bit. Here are some things I did to make Homebridge easier to deal with.
