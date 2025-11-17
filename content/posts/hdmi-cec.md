@@ -35,7 +35,7 @@ To debug that mess I first wrote down how every device identified itself on the 
 - **Playback devices** – logical addresses `4`, `8`, `B` (Apple TV, PS5, Switch 2 and Xbox all competing for the three playback slots[^playback-limit])
 - **Broadcast** – logical address `F` (messages to everyone)
 
-[^playback-limit]: Amazingly, HDMI-CEC only defines only [**three** playback logical addresses](https://feintech.eu/en/blogs/know-how/wozu-dient-hdmi-cec): `4` (Playback 1), `8` (Playback 2), and `11` (`0xB`) (Playback 3). That’s fine if you have one streaming box and a couple of consoles. I had **four** playback-class boxes (Apple TV, PS5, Switch 2, Xbox) connected to the Denon. According to HDMI-CEC, only three of them can ever be “real” playback devices at once, so when the fourth one wakes up the TV and AVR have to reshuffle logical addresses on the fly. In practice this looked unhinged: if the Switch was on, changing input to Xbox was impossible, I'd get a quick black screen and the input snaps back to Xbox. None of this was a Samsung or Denon bug; it was just me exceeding the three-playback-device limit baked into the CEC spec.
+[^playback-limit]: Amazingly, HDMI-CEC only defines only [**three** playback logical addresses](https://feintech.eu/en/blogs/know-how/wozu-dient-hdmi-cec): `4` (Playback 1), `8` (Playback 2), and `11`/`B` (Playback 3). That’s fine if you have one streaming box and a couple of consoles. I had **four** playback-class boxes (Apple TV, PS5, Switch 2, Xbox) connected to the Denon. According to HDMI-CEC, only three of them can ever be “real” playback devices at once, so when the fourth one wakes up the TV and AVR have to reshuffle logical addresses on the fly. In practice this looked unhinged: if the Switch was on, changing input to Xbox was impossible, I'd get a quick black screen and the input snaps back to Xbox. This is wild, but fortunately I only use one console at a time so it’s not a big deal. Probably not worth trying to fix.
 
 Topology-wise, it looks like this:
 
@@ -158,14 +158,14 @@ So I put the system in standby, start logging, then wake Apple TV. I got the exp
 ```text
 >> 8f:82:32:00       # Apple TV (logical 8) -> Broadcast: Active Source
 ...
->> 8f:a6:06:10:56:10 # Apple TV (logical 8) -> Denon (logical 5): ???
+>> 8f:a6:06:10:56:10 # Apple TV (logical 8) -> Broadcast: ???
 >> 5f:72:01          # Denon (logical 5) -> Broadcast: Set System Audio Mode (on)
 ```
 
 Translated:
 
 1. Apple TV announces itself as the active source.
-2. Apple TV sends some magic bits to the Denon??
+2. Apple TV broadcasts some magic bits?
 3. Very soon after, the Denon tells everyone “System Audio Mode is on,” and the TV happily keeps output set to **Receiver** instead of flipping back to TV speakers.
 
 I did the exact same experiment with PS5, Xbox, Switch 2 and the result was different:
@@ -175,7 +175,7 @@ I did the exact same experiment with PS5, Xbox, Switch 2 and the result was diff
 # ...a bunch of reports, but no 5f:72:01
 ```
 
-So what was the `8f:a6:06:10:56:10` frame when Apple TV was involved? With debug logs, `cec-client` showed `UNKNOWN (A6)`. So, opcode `A6` is not a standard CEC opcode, so `libCEC` labels it unknown because it’s in the vendor-specific range. The following bytes (`06:10:56:10`) could be Apple’s proprietary payload, like some capability or extended control. It's possible Samsung and Apple have a private handshake here that ultimately results in the Denon doing the right thing. It’s neat, but I couldn't rely on it since it’s undocumented and sending it manually from the Raspberry Pi's logical address had no effect. Impersonating Apple TV over CEC is not realistically viable and likely brittle.
+So what was the `8f:a6:06:10:56:10` frame when Apple TV was involved? With debug logs, `cec-client` showed `UNKNOWN (A6)`. I suspect `libCEC` labels it unknown because it’s in the vendor-specific range. The following bytes (`06:10:56:10`) could be Apple’s proprietary payload, like some capability or extended control. It's possible Samsung and Apple have a private handshake here that ultimately results in the Denon doing the right thing. It’s neat, but I couldn't rely on it since it’s undocumented and sending it manually from the Raspberry Pi's logical address had no effect. Impersonating Apple TV over CEC is not realistically viable and likely brittle.
 
 However, with [cec-o-matic.com](https://www.cec-o-matic.com), it was easy to craft a CEC frame for the Raspberry Pi to send a normal system audio mode request:
 
@@ -196,7 +196,7 @@ So the solution started to emerge: whenever a console wakes up and claims Active
 
 ## Don’t spam the bus!
 
-The most obvious thing to do is to write a bash script that loops `cec-client` every few seconds and blast `on 5`. That sort of works, but it's not ideal:
+Now that we know the basis of the automation, the most obvious thing to do is to write a bash script that loops `cec-client` every few seconds and blast `on 5`. That sort of works, but it's not ideal:
 
 * Using a loop means the automation is delayed instead of reacting to actual CEC events.
 * Every iteration spins up a new `cec-client`, binds to `/dev/cec0`, sends one command, and tears down.
