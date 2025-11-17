@@ -84,6 +84,7 @@ function renderMermaid() {
     const theme = prefersDark.matches ? 'dark' : 'default';
     diagrams.forEach((diagram) => {
       diagram.el.textContent = diagram.text;
+      diagram.el.removeAttribute('data-processed');
     });
     if (window.mermaid) {
       window.mermaid.initialize({ startOnLoad: false, theme });
@@ -103,9 +104,15 @@ function renderMermaid() {
     setTimeout(() => clearInterval(interval), 5000);
   }
 
-  prefersDark.addEventListener('change', () => {
+  const handleThemeChange = () => {
     if (window.mermaid) run();
-  });
+  };
+
+  if (typeof prefersDark.addEventListener === 'function') {
+    prefersDark.addEventListener('change', handleThemeChange);
+  } else if (typeof prefersDark.addListener === 'function') {
+    prefersDark.addListener(handleThemeChange);
+  }
 }
 
 function enhanceToc() {
