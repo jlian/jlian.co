@@ -1,8 +1,9 @@
 ---
 title: "About"
 date: 2018-02-21T20:59:39-08:00
-featured_image: '/images/hoian.jpg'
+featured_image: "/images/about/about.jpeg"
 ---
+
 
 I'm a PM at [Microsoft Azure IoT](https://azure.microsoft.com/overview/iot/), mostly working on [Azure IoT Operations](https://azure.microsoft.com/products/iot-operations). I also worked on IoT Edge and IoT Hub earlier.
 
@@ -15,9 +16,9 @@ Before Microsoft, I studied Mechanical Engineering at McGill University, where I
 
 Prior to that, our family moved to Vancouver in 2004, but we're originally from [Xiamen, China](http://en.wikipedia.org/wiki/Xiamen).
 
-# Résumé
+# Resume
 
-See my [résumé](/resume/JohnLianCV.pdf).
+See my [resume](/resume/JohnLianCV.pdf).
 
 # Contact
 

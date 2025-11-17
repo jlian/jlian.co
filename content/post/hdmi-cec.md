@@ -1,31 +1,39 @@
 ---
 title: "Fixing HDMI-CEC weirdness with a Raspberry Pi and a $5 cable"
 date: 2025-11-15T10:00:00-07:00
-draft: true
 tags: [home theater, hdmi-cec, raspberry pi, automation]
 featured_image: "/images/posts/hdmi-cec/featured.jpg"
+description: "Revenge tale where a $5 cable and Raspberry Pi bully Samsung + Denon into behaving."
 ---
 
-For years I treated HDMI-CEC like a house spirit: sometimes helpful, mostly temperamental, never fully understood. My living-room stack is straightforward: Samsung TV on [ARC](https://en.wikipedia.org/wiki/HDMI#ARC_and_eARC), Denon AVR-X1700H hidden in a closet, Apple TV plus a stack of consoles hanging off the receiver, and a [Raspberry Pi 4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) already doing [Homebridge](https://homebridge.io/) duty. Apple TV behaves like demo hardware from Cupertino; every console behaves like it missed the last week of CEC school. They wake the TV, switch the input, then leave the Denon asleep so I’m back to toggling audio outputs by hand.
+For years I treated [HDMI-CEC](https://en.wikipedia.org/wiki/Consumer_Electronics_Control) like a house spirit: sometimes helpful, mostly temperamental, never fully understood. My living-room stack is straightforward: Samsung TV on [ARC](https://en.wikipedia.org/wiki/HDMI#ARC_and_eARC) (NOT eARC - story for another day), Denon AVR-X1700H hidden in a closet, Apple TV plus a bunch of consoles connected to the receiver, and a [Raspberry Pi 4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) already doing [Homebridge](https://homebridge.io/) duty. When it comes to CEC, the Apple TV handles it like a dream, but every console behaves like it missed the last week of CEC school. They wake the TV, switch the input, then leave the Denon asleep so I’m back to toggling audio outputs manually.
 
 ![My media closet where all the consoles are](/images/posts/hdmi-cec/media-closet.jpg)
 
-Rewiring wasn’t an option and disabling CEC wasn’t politically viable (people like Apple TV’s magic), so the question became: can I fix it with the gear I own, ideally with one more $5 micro-HDMI cable? The short version: yes. The Pi now sits quietly on the HDMI bus, watching for consoles to announce themselves and issuing the single command Samsung + Denon should have exchanged on their own.
+> I documented the [media closet build-out](/post/media-closet/) separately, so if you want the full wiring tour (and the before/after photos), start there.
 
-This write-up mirrors the structure of my notebook: build a small mental model of CEC, sniff the bus, copy whatever Apple TV does right, wrap it in Python, then ship it as a [systemd](https://www.freedesktop.org/wiki/Software/systemd/) unit. Along the way I’ll point out where you can drop in photos/diagrams; shoot those once you have daylight.
+With the media closet, rewiring everything to the TV wasn’t an option and disabling CEC wasn’t viable (Apple TV works and it gets the most use). My first instinct was to lean on traditional automation stacks: HomeKit scenes to chain “TV on” into “receiver on” or wattage triggers via an [Eve Energy](https://www.evehome.com/en/eve-energy) plug. This kind of worked, but every extra layer added 30 seconds of lag or more. The last stop on that journey was a [`homebridge-cec-tv-control` plugin](https://github.com/electroflame/homebridge-cec-tv-control), but while reading the README I realized I was about to pipe CEC messages through Node, Homebridge, and HomeKit before they hit the receiver. *The Pi is wired into the rack already, so skipping those layers and going through `/dev/cec0` directly was clearly the faster path.*
 
-## A tiny HDMI-CEC primer (just enough to be dangerous)
+After an evening of struggling, the Pi now sits quietly on the HDMI bus, watching for consoles to announce themselves and issuing the single command Samsung + Denon should have exchanged on their own.
 
-[HDMI-CEC](https://en.wikipedia.org/wiki/Consumer_Electronics_Control) is a low-bandwidth side channel that rides alongside HDMI video/audio. Everyone on the bus speaks in logical addresses (`0` for TV, `5` for audio systems, `4/8/9/B` for playback devices) and tiny opcodes such as `0x82` (**Active Source**) or `0x72` (**Set System Audio Mode**). Physical addresses are “lat/long” references inside the topology—`3.0.0.0` might mean “behind the AVR on HDMI 3”.
+This post follows the structure of my notes: build a small mental model of CEC, monitor the bus, copy whatever Apple TV does right, wrap it in Python, then ship it as a [systemd](https://systemd.io) unit.
 
-In a healthy system the flow goes like this: console wakes and declares itself active, the TV notices there’s an ARC partner, somebody sends “please be the audio system”, the receiver wakes up, and audio never leaves the big speakers. That path only fired when Apple TV was involved.
+## Small HDMI-CEC primer
 
-Here are the specific CEC roles that mattered in my stack:
+*[High-Definition Multimedia Interface](https://en.wikipedia.org/wiki/HDMI) [Consumer Electronics Control](https://en.wikipedia.org/wiki/Consumer_Electronics_Control)*, much better known as **HDMI-CEC**, is a low-bandwidth side channel that rides alongside HDMI video/audio. Everyone on the bus speaks in *logical addresses* (`0` for TV, `5` for audio systems, `4/8/9/B` for playback devices, etc.) and tiny *opcodes*[^cec-frame] such as `0x82` (**Active Source**) or `0x72` (**Set System Audio Mode**). Physical addresses are “lat/long” references inside the topology, so `3.0.0.0` can mean “AVR input source HDMI 3”.
+
+[^cec-frame]: Super confusing, using https://www.cec-o-matic.com is really helpful.
+
+CEC is *supposed to* help consumers control their electronics, so in a healthy system the flow goes like this: console wakes and declares itself active, the TV notices there’s an ARC partner, somebody sends “please be the audio system”, the receiver wakes up, and audio comes out of the big speakers. For me, that path only occurred when Apple TV was involved. Sadly, when I woke a console, the TV switched inputs but audio stayed on the crappy TV speakers.
+
+To debug that mess I first wrote down how every device identified itself on the bus. Here are the specific CEC roles in my home theater:
 
 - **TV** – logical address `0`
 - **Audio system (Denon AVR-X1700H)** – logical address `5`
-- **Playback devices** – logical addresses `4`, `8`, `9`, `B` (Apple TV, PS5, Switch 2, etc.)
+- **Playback devices** – logical addresses `4`, `8`, `B` (Apple TV, PS5, Switch 2 and Xbox all competing for the three playback slots[^playback-limit])
 - **Broadcast** – logical address `F` (messages to everyone)
+
+[^playback-limit]: HDMI-CEC only defines only [**three** playback logical addresses](https://feintech.eu/en/blogs/know-how/wozu-dient-hdmi-cec): `4` (Playback 1), `8` (Playback 2), and `11` (`0xB`) (Playback 3). That’s fine if you have one streaming box and a couple of consoles. I had **four** playback-class boxes (Apple TV, PS5, Switch 2, Xbox) hanging off the Denon. On the wire, only three of them can ever be “real” playback devices at once, so when the fourth one wakes up the TV and AVR have to reshuffle logical addresses on the fly. In practice this looked unhinged: trying to switch inputs with the Xbox and Switch both on would result a black screen, and then the input switching not working and reverting to the previous source. None of this was a Samsung or Denon bug; it was just me exceeding the three-playback-device limit baked into the CEC spec.
 
 And the key opcodes we ended up caring about:
 
@@ -40,33 +48,29 @@ Topology-wise, it looks like this:
 graph LR
   TV["TV (logical 0, phys 0.0.0.0)"]
   AVR["Denon AVR (Audio, logical 5, phys 3.0.0.0)"]
-  ATV["Apple TV (Playback, logical 4, phys 3.2.0.0)"]
-  PS5["PS5 (Playback, logical B, phys 3.6.0.0)"]
-  SW["Switch 2 (Playback, logical 8, phys 3.1.0.0)"]
+  ATV["Apple TV (Playback 2, logical 4, phys 3.2.0.0)"]
+  PS5["PS5 (Playback 3, logical B, phys 3.6.0.0)"]
+  SW["Switch 2 (Playback 1, logical 8, phys 3.1.0.0)"]
+  XBOX["Xbox (Playback 1, logical 8, phys 3.4.0.0)"]
 
   TV ---|HDMI ARC| AVR
   AVR ---|HDMI| ATV
   AVR ---|HDMI| PS5
+  AVR ---|HDMI| XBOX
   AVR ---|HDMI| SW
 ```
 
-## Sniffing the CEC bus with `cec-client`
+## Monitoring the CEC bus with `cec-client`
 
-The Raspberry Pi exposes `/dev/cec0` on its micro-HDMI ports and Pulse-Eight’s [`libcec`](https://github.com/Pulse-Eight/libcec) gives us `cec-client`. Install it, run:
+The Raspberry Pi 4 I had exposes `/dev/cec0` interface on its micro-HDMI, and with a $5 micro-HDMI to HDMI cable plugged into HDMI input port on the receiver, you can monitor CEC traffic from *everything connected to the receiver*.
+
+![Close-up photo of the Pi plugged into the TV’s ARC HDMI input, HDMI adapters visible](/images/posts/hdmi-cec/raspberry-pi-hdmi.jpg)
+
+And [`libcec`](https://github.com/Pulse-Eight/libcec) gives us `cec-client`. Install it with `sudo apt install cec-utils`, then run:
 
 ```bash
 echo "scan" | cec-client -s
 ```
-
-Make sure your devices show up, then park on:
-
-```bash
-cec-client -m -d 8
-```
-
-to record traffic. That command keeps the Pi quiet (monitor mode) yet gives you every bus transaction.
-
-The `-d` flag is a bitmask of log levels (`ERROR=1`, `WARNING=2`, `NOTICE=4`, `TRAFFIC=8`, `DEBUG=16`), which is why something like `-d 4` might show nothing interesting; the truth is hiding in [`cectypes.h`](https://github.com/Pulse-Eight/libcec/blob/95d1c6965e38000f56776f4563f9763832a5a7c2/include/cectypes.h#L835-L843).
 
 Example scan output from my setup:
 
@@ -75,58 +79,84 @@ CEC bus information
 ===================
 device #0: TV
 address:       0.0.0.0
+active source: no
 vendor:        Samsung
+osd string:    TV
+CEC version:   1.4
+power status:  on
+language:      eng
+
+
+device #1: Recorder 1
+address:       3.3.0.0
+active source: no
+vendor:        Pulse Eight
+osd string:    CECTester
+CEC version:   1.4
+power status:  on
+language:      eng
+
+
+device #4: Playback 1
+address:       3.1.0.0
+active source: yes
+vendor:        Unknown
+osd string:    Switch 2
+CEC version:   1.3a
+power status:  on
+language:      ???
+
 
 device #5: Audio
 address:       3.0.0.0
+active source: no
 vendor:        Denon
+osd string:    AVR-X1700H
+CEC version:   1.4
+power status:  on
+language:      ???
 
-device #4: Playback 1 (Apple TV)
+
+device #8: Playback 2
 address:       3.2.0.0
+active source: no
 vendor:        Apple
+osd string:    Apple TV
+CEC version:   2.0
+power status:  standby
+language:      ???
 
-device #8: Playback 2 (Switch 2)
-address:       3.1.0.0
-vendor:        Unknown
 
-device #B: Playback 3 (PlayStation 5)
+device #B: Playback 3
 address:       3.6.0.0
+active source: no
 vendor:        Sony
+osd string:    PlayStation 5
+CEC version:   1.3a
+power status:  standby
+language:      ???
 ```
 
-A line such as:
+Make sure your devices show up, then use monitor mode with the correct level[^log] of logging:
 
-```text
-TRAFFIC: [...] >> bf:82:36:00
+```bash
+cec-client -m -d 8
 ```
 
-reads as: logical `B` (PS5) broadcast Active Source (`0x82`) with physical address `3.6.0.0`. That’s the packet you expect any console to send when it wakes up.
+This command keeps the Pi quiet (monitor mode) yet gives you every bus transaction.
 
-![Close-up photo of the Pi plugged into the TV’s ARC HDMI input, HDMI adapters visible](/images/posts/hdmi-cec/raspberry-pi-hdmi.jpg)
+[^log]: the `-d` flag is a bitmask of log levels (`ERROR=1`, `WARNING=2`, `NOTICE=4`, `TRAFFIC=8`, `DEBUG=16`, `ALL=31`), which is why something like `-d 4` might show nothing interesting; the truth is hiding in [`cectypes.h`](https://github.com/Pulse-Eight/libcec/blob/95d1c6965e38000f56776f4563f9763832a5a7c2/include/cectypes.h#L835-L843). So `-d 8` means “traffic only.” I originally tried `-d 4` (notice) and saw nothing when turning on Apple TV, which led to a small detour through `libcec`’s source. This was surprisingly under-documented and many sources had misleading info about it. 
 
-There’s one more `cec-client` detail that’s surprisingly under-documented: **log levels**. The enum in `libcec` looks like this:
+A line such as `TRAFFIC: [...] >> bf:82:36:00` means: logical `B` (PS5) broadcast Active Source (`0x82`) with physical address `3.6.0.0`. That’s the packet you expect any console to send when it wakes up.
 
-```c
-typedef enum cec_log_level
-{
-  CEC_LOG_ERROR   = 1,
-  CEC_LOG_WARNING = 2,
-  CEC_LOG_NOTICE  = 4,
-  CEC_LOG_TRAFFIC = 8,
-  CEC_LOG_DEBUG   = 16,
-  CEC_LOG_ALL     = 31
-} cec_log_level;
-```
+## Figuring out the magic handshake
 
-So `-d 8` means “traffic only.” I originally tried `-d 4` (notice) and saw nothing when turning on Apple TV, which led to a small detour through `libcec`’s source. If you’ve ever wondered why `-d 4` seems useless for debugging CEC flows, that’s why.
-
-## Apple TV vs everyone else
-
-Put the system in standby, start logging, then wake Apple TV. You get the expected `Active Source` burst, followed immediately by the Denon broadcasting that it has taken over audio:
+So I put the system in standby, start logging, then wake Apple TV. I got the expected `Active Source` burst, followed immediately by the Denon broadcasting that it has taken over audio:
 
 ```text
 >> 8f:82:32:00       # Apple TV (logical 8) -> Broadcast: Active Source
 ...
+>> 8f:a6:06:10:56:10 # Apple TV (logical 8) -> Denon (logical 5): ???
 >> 5f:72:01          # Denon (logical 5) -> Broadcast: Set System Audio Mode (on)
 ```
 
@@ -135,38 +165,27 @@ Translated:
 1. Apple TV announces itself as the active source.
 2. Very soon after, the Denon tells everyone “System Audio Mode is on,” and the TV happily keeps output set to **Receiver** instead of flipping back to TV speakers.
 
-Do the exact same experiment with PS5 or Switch 2 and the second packet never arrives:
+I did the exact same experiment with PS5, Xbox, Switch 2 and the second packet never arrives:
 
 ```text
 >> bf:82:36:00       # PS5: Active Source
 # ...a bunch of reports, but no 5f:72:01
 ```
 
-This is where some Apple-specific magic shows up. When Apple TV is in the mix, I also see vendor-specific commands like:
+So what was the `8f:a6:06:10:56:10` frame when Apple TV was involved? With debug logs, cec-client showed `>> Playback 2 (8) -> Broadcast (F): UNKNOWN (A6)`. So, opcode `A6` is not a standard CEC opcode, so libCEC labels it `UNKNOWN (A6)` because it’s in the vendor-specific range. The following bytes (`06:10:56:10`) could be Apple’s proprietary payload, like some capability or extended control. It's possible Samsung and Apple have a private handshake here that ultimately results in the Denon doing the right thing. It’s neat, but I couldn't rely on it since it’s undocumented and sending it manually from the Raspberry Pi's logical address had no effect. Impersonating Apple TV over CEC is not realistically viable and likely brittle.
 
-```text
->> 4f:a6:06:10:56:10
-```
-
-Opcode `0xA6` is vendor-defined; Samsung and Apple have a private handshake here that ultimately results in the Denon doing the right thing. It’s neat, but we don’t actually need to understand it. The important bit is the boring, standards-based packet that **fixes** the problem:
-
-```text
-5f:72:01    # Audio (5) -> Broadcast (F): Set System Audio Mode (on)
-```
-
-And, more portably, the **request** that reliably causes that response:
+However, with cec-o-matic.com, it was easy to craft a CEC frame for the Raspberry Pi to send a system audio mode request:
 
 ```text
 15:70:00:00 # TV (1) -> Audio (5): System Audio Mode Request
 ```
 
-The moment I typed this into `cec-client`’s interactive shell:
+Breaking it down:
+- `15` = source `1` (Recorder 1 = Pi) sends to destination 5 (Audio System = Denon)
+- `70` = opcode **System Audio Mode Request**
+- `00:00` = operands (TV’s physical address 0.0.0.0, plus “system audio status” = off/0, which Denon interprets as “please negotiate system audio mode and turn on ARC”)
 
-```text
-tx 15:70:00:00
-```
-
-…the Denon sprang to life and ARC anchored to the receiver even with only a console and TV powered on. That’s the whole trick: copy the **effect** of the secret Apple/Samsung/Denon dance with a single, documented CEC opcode.
+The second I typed this into `cec-client`’s interactive shell with `tx 15:70:00:00`, the Denon turned on and ARC anchored to the receiver even with only a console and TV powered on. That’s the whole trick: copy the **effect** of the secret Apple/Samsung/Denon dance with a single, documented CEC opcode.
 
 ![Photo of TV UI confirming receiver output](/images/posts/hdmi-cec/output.jpg)
 
@@ -175,7 +194,7 @@ Here’s a simplified “good vs bad” handshake timeline:
 ```mermaid
 sequenceDiagram
   participant PS5 as PS5 (Playback B)
-  participant ATV as Apple TV (Playback 4)
+  participant ATV as Apple TV (Playback 8)
   participant TV as TV (0)
   participant AVR as Denon AVR (5)
 
@@ -195,9 +214,9 @@ sequenceDiagram
 
 All we’re going to do is watch for the “console-only” trace and inject the missing `15:70:00:00` on the TV’s behalf.
 
-## Don’t spam the bus
+## Don’t spam the bus!
 
-Most forum scripts loop `cec-client` every few seconds and blast `on 5`. That sort of works, but it’s wasteful, slow, and blind:
+Many forum scripts loop `cec-client` every few seconds and blast `on 5`. That sort of works, but it's not ideal:
 
 * Every iteration spins up a new `cec-client`, binds to `/dev/cec0`, sends one command, and tears down.
 * You’re guessing about timing instead of reacting to actual CEC events.
@@ -205,9 +224,11 @@ Most forum scripts loop `cec-client` every few seconds and blast `on 5`. That so
 
 A better pattern is:
 
-1. Start a **single** long-lived `cec-client` process.
+1. Start a **single** long-lived `cec-client` process.[^python-cec]
 2. Let it print every `TRAFFIC` line for you to parse.
 3. Feed it `tx ...` commands on stdin only when you need to intervene.
+
+[^python-cec]: There are Python bindings for libCEC, but they’re poorly documented and I found it easier to just wrap `cec-client` as a subprocess.
 
 The only catch: monitor mode (`-m`) can’t transmit. So for the automation we switch to:
 
@@ -215,11 +236,22 @@ The only catch: monitor mode (`-m`) can’t transmit. So for the automation we s
 cec-client -d 8
 ```
 
-No `-m` here. `cec-client` still prints all the traffic, but now it also accepts commands. Our Python script treats it like a Unixy bridge between HDMI land and our own logic: stdout is an event stream, stdin is a control channel.
+No `-m` here. `cec-client` still prints all the traffic, but now it also accepts commands. Our Python script treats it like a Unixy bridge between HDMI land and our own logic: `stdout` is an event stream, `stdin` is a control channel.
 
 ## The Python script
 
-Below is the trimmed version that runs on my Pi. It:
+I put the whole script on GitHub:
+
+<div class="mv3">
+  <a class="github-button link br2 ph2 pv2 inline-flex items-center fw6" href="https://github.com/jlian/cec_auto_audio" target="_blank" rel="noopener noreferrer">
+    <svg class="w1 h1 mr2" viewBox="0 0 512 512" role="img" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M256 32C132.3 32 32 134.8 32 261.7c0 101.5 64.2 187.5 153.2 217.9 11.2 2.1 15.3-5 15.3-11.1 0-5.5-.2-19.9-.3-39.1-62.3 13.9-75.5-30.8-75.5-30.8-10.2-26.5-24.9-33.6-24.9-33.6-20.3-14.3 1.5-14 1.5-14 22.5 1.6 34.3 23.7 34.3 23.7 20 35.1 52.4 25 65.2 19.1 2-14.8 7.8-25 14.2-30.7-49.7-5.8-102-25.5-102-113.5 0-25.1 8.7-45.6 23-61.6-2.3-5.8-10-29.2 2.2-60.8 0 0 18.8-6.2 61.6 23.5 17.9-5.1 37-7.6 56.1-7.7 19 .1 38.2 2.6 56.1 7.7 42.8-29.7 61.5-23.5 61.5-23.5 12.2 31.6 4.5 55 2.2 60.8 14.3 16.1 23 36.6 23 61.6 0 88.2-52.4 107.6-102.3 113.3 8 7.1 15.2 21.1 15.2 42.5 0 30.7-.3 55.5-.3 63 0 6.1 4 13.3 15.4 11C415.9 449.1 480 363.1 480 261.7 480 134.8 379.7 32 256 32z"/>
+    </svg>
+    <span>Download</span>
+  </a>
+</div>
+
+The script logic goes:
 
 * Starts `cec-client -d 8` as a subprocess.
 * Parses `TRAFFIC` lines.
@@ -227,266 +259,21 @@ Below is the trimmed version that runs on my Pi. It:
 * Tracks when the Denon last broadcast **Set System Audio Mode (`5f:72:01`)** so we don’t fight Apple TV or the TV’s own logic.
 * Sends `tx 15:70:00:00` at most once per console wake if nobody else has done it.
 
-Drop it into `/opt/cec-auto-audio/cec_auto_audio.py` (or similar) on the Pi.
-
-```python
-#!/usr/bin/env python3
-"""
-cec_auto_audio.py
-
-Watch HDMI-CEC traffic on a Raspberry Pi and nudge the AVR (Denon)
-to become the system audio device when a console becomes Active Source.
-
-Requires:
-  - libcec / cec-client installed
-  - Raspberry Pi's HDMI-CEC interface exposed as /dev/cec0
-"""
-
-import subprocess
-import sys
-from datetime import datetime, timedelta
-
-# Logical address of the audio system (Denon AVR)
-LOGICAL_AUDIO = 0x5
-
-# Playback device logical addresses (per CEC spec)
-# We treat ANY of these becoming Active Source as a "console wake".
-PLAYBACK = {0x4, 0x8, 0x9, 0xB}
-
-# How long after Active Source we’re willing to treat it as a fresh wakeup
-PENDING_WINDOW = timedelta(seconds=0.5)
-
-# If we saw a real Set System Audio Mode recently, assume Apple TV / TV
-# already negotiated audio correctly and stay out of the way.
-SAM_GRACE = timedelta(seconds=10)
-
-# Path to cec-client
-CEC_CLIENT = "/usr/bin/cec-client"
-
-# Flip to True if you want to test logic without actually sending CEC commands
-DRY_RUN = False
-
-
-def log(level: str, msg: str) -> None:
-    """Simple timestamped logger."""
-    print(f"[{level} {datetime.now():%H:%M:%S}] {msg}", flush=True)
-
-
-def parse_line(line: str):
-    """Parse a TRAFFIC line like 'TRAFFIC: [...] >> bf:82:36:00'.
-
-    Returns (src, dst, opcode, params) or None on failure.
-    """
-    if "TRAFFIC:" not in line:
-        return None
-
-    marker = ">> "
-    if marker not in line:
-        return None
-
-    try:
-        payload = line.split(marker, 1)[1].strip()
-        # Split "bf:82:36:00" into [0xbf, 0x82, 0x36, 0x00]
-        parts = [int(p, 16) for p in payload.split(":")]
-        if len(parts) < 2:
-            return None
-
-        # First byte encodes src/dst nibbles
-        src, dst = divmod(parts[0], 0x10)
-        opcode = parts[1]
-        params = parts[2:]
-        return src, dst, opcode, params
-    except Exception:
-        return None
-
-
-class AutoAudio:
-    """State machine that wraps a long-lived cec-client process."""
-
-    def __init__(self):
-        # Start cec-client in normal (non-monitor) mode at TRAFFIC level.
-        # This gives us all bus traffic and allows tx commands via stdin.
-        self.proc = subprocess.Popen(
-            [CEC_CLIENT, "-d", "8"],
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
-            bufsize=1,  # line-buffered
-        )
-
-        # pending = (src_logical, phys_str, time_of_active_source)
-        self.pending = None
-        self.last_sam = datetime.min  # last time we saw 5f:72:01
-
-    def send(self, cmd: str) -> None:
-        """Send a single CEC command line to cec-client (e.g., 'tx 15:70:00:00')."""
-        if DRY_RUN:
-            log("AUTO", f"[DRY RUN] Would send: {cmd}")
-            return
-
-        if not self.proc.stdin:
-            log("ERROR", "cec-client stdin is not available.")
-            return
-
-        try:
-            self.proc.stdin.write(cmd + "\n")
-            self.proc.stdin.flush()
-            log("AUTO", f"Sent: {cmd}")
-        except Exception as e:
-            log("ERROR", f"Failed to send '{cmd}' to cec-client: {e}")
-
-    def maybe_nudge(self) -> None:
-        """If the conditions are right, send System Audio Mode Request once."""
-        if not self.pending:
-            return
-
-        src, phys, t0 = self.pending
-        now = datetime.now()
-
-        # If it’s been too long since Active Source, give up.
-        if now - t0 > PENDING_WINDOW:
-            self.pending = None
-            return
-
-        # If we saw a recent real System Audio Mode broadcast, stay passive.
-        if now - self.last_sam < SAM_GRACE:
-            self.pending = None
-            return
-
-        log(
-            "AUTO",
-            f"Playback/console at logical {src:X} ({phys}) is active "
-            f"and no recent System Audio Mode seen; sending request."
-        )
-        # TV (1) -> Audio (5): System Audio Mode Request (0x70) for phys 0.0.0.0 (TV)
-        self.send("tx 15:70:00:00")
-        self.pending = None
-
-    def handle(self, src: int, dst: int, opcode: int, params: list[int]) -> None:
-        """Handle a parsed CEC frame."""
-
-        # Denon broadcasting System Audio Mode On: 5f:72:01
-        if src == LOGICAL_AUDIO and opcode == 0x72 and params[:1] == [0x01]:
-            self.last_sam = datetime.now()
-            self.pending = None
-            log("INFO", "Denon broadcast System Audio Mode On (5f:72:01).")
-            return
-
-        # Active Source from any playback device
-        if opcode == 0x82:
-            phys = ":".join(f"{p:02x}" for p in params[:2]) or "??"
-
-            if src in PLAYBACK:
-                self.pending = (src, phys, datetime.now())
-                log(
-                    "AUTO",
-                    f"Playback/console at logical {src:X} became Active Source (phys {phys})."
-                )
-                # Try to nudge immediately; if the AVR or TV does the right thing
-                # in the next few ms and we see 5f:72:01, SAM_GRACE will suppress us.
-                self.maybe_nudge()
-            else:
-                # Something else (TV, AVR, etc.) became active; cancel any pending console wake.
-                self.pending = None
-
-    def loop(self) -> None:
-        """Main loop: read lines from cec-client and feed the state machine."""
-        if not self.proc.stdout:
-            log("ERROR", "cec-client stdout is not available.")
-            return
-
-        for line in self.proc.stdout:
-            # Mirror raw cec-client output into the journal/terminal
-            print(line, end="", flush=True)
-
-            parsed = parse_line(line)
-            if not parsed:
-                continue
-
-            self.handle(*parsed)
-
-        log("ERROR", "cec-client exited; stopping helper.")
-
-
-def main() -> None:
-    log("INFO", f"Starting CEC auto-audio watcher (DRY_RUN={DRY_RUN})")
-    helper = AutoAudio()
-    helper.loop()
-
-
-if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        log("INFO", "Interrupted, exiting.")
-        sys.exit(0)
-```
-
 A few notes:
 
-* The script **doesn’t hard-code** anything about PS5 / Switch names, vendors, or physical addresses.
-* It treats **any Playback logical address** (`4/8/9/B`) turning into Active Source as a “console wake” event.
+* The script **doesn’t hard-code** anything about PS5 / Switch / Xbox names, vendors, or physical addresses.
+* It treats **any Playback logical address** (`4/8/B`) turning into Active Source as a “console wake” event.
 * It stays **passive** when Apple TV / Samsung / Denon manage to do the right thing themselves (because we observe a real `5f:72:01`).
 * It runs as a single long-lived process tied to a single `cec-client` instance.
 
-You can temporarily set `DRY_RUN = True` while sniffing behavior; you’ll see log lines like:
-
-```text
-[AUTO 00:18:19] Playback/console at logical B became Active Source (phys 36:00).
-[AUTO 00:18:20] [DRY RUN] Would send: tx 15:70:00:00
-```
-
-Once you’re happy, flip `DRY_RUN = False`.
-
-## Running it as a systemd service
-
-On the Pi, create a service file:
-
-```bash
-sudo nano /etc/systemd/system/cec-auto-audio.service
-```
-
-Example unit:
-
-```ini
-[Unit]
-Description=CEC auto audio helper (Denon + consoles)
-After=network.target
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/python3 /opt/cec-auto-audio/cec_auto_audio.py
-Restart=on-failure
-User=pi
-Group=pi
-WorkingDirectory=/opt/cec-auto-audio
-StandardOutput=journal
-StandardError=journal
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Then:
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl enable cec-auto-audio.service
-sudo systemctl start cec-auto-audio.service
-
-# Tail logs
-journalctl -u cec-auto-audio.service -f
-```
-
-Because we print both our own `[INFO]` / `[AUTO]` lines and the raw `cec-client` output, the journal doubles as a trace buffer. `journald` handles rotation automatically; you don’t need to babysit log files.
+You can also check the README on GitHub for for running it as a `systemd` service so it starts on boot.
 
 ## Generalizing this approach
 
 Maybe your pain point isn’t consoles; maybe DTS never negotiates, or your TV keeps snapping back to its tiny speakers. The workflow is the same:
 
-1. **Get the Pi onto the ARC port**
-   Plug the Pi into the TV’s ARC/eARC HDMI input using a micro-HDMI–>HDMI cable (or adapter). Put it somewhere it can live forever.
+1. **Get the Pi onto the an HDMI port**
+   Plug the Pi into the TV or Receiver's HDMI input using a micro-HDMI–>HDMI cable (or adapter). Put it somewhere it can sit forever.
 
 2. **Baseline the bus**
    Run `echo "scan" | cec-client -s` to see what devices exist, what logical roles they claim, and where they sit physically.
@@ -532,8 +319,21 @@ Your job is to spot the missing step and teach the Pi to do it.
 
 ## Where this leaves my setup
 
-Apple TV keeps doing its thing. PS5 or Switch now wake the TV, the helper nudges the Denon within half a second, and audio stays glued to the receiver. Latency is low enough that it feels native. The Pi sits in the closet pretending to be a slightly overqualified remote.
+Apple TV keeps doing its thing. PS5, Xbox, or Switch now wake the TV, the Pi nudges the Denon within half a second, and audio stays glued to the receiver. Latency is low enough that it feels native. The Pi sits in the closet pretending to be a slightly overqualified remote.
 
 ![Picture of my TV and cat being comfortable](/images/posts/hdmi-cec/tv-and-cat.jpg)
+
+There are still a couple of rough edges I haven’t tackled yet:
+
+- **When a console goes to sleep, the TV sometimes “helpfully” switches to its antenna input.** I don’t even have an antenna plugged in, so the net effect is a confusing “no signal” screen instead of falling back to Apple TV or a known-good input. That’s technically “correct” from the TV’s point of view (its own tuner is always a valid source), but wrong for how this setup is actually used.
+
+- **My sunset TV automation can land on a dead input.** I have a HomeKit automation that turns the TV on around sunset. Most of the time that means Apple TV wakes up with a nice aerial screensaver. But if the last input before power-off was a console, the TV wakes to that HDMI port and just shows “no signal”, which confuses other people in the house.
+
+Both problems feel like they should be fixable with the same tooling. A future version of the Python helper could watch for “TV just powered on” and then:
+
+1. Wait briefly to see if the TV declares itself Active Source (to avoid breaking internal apps like Netflix).
+2. If nothing claims Active Source within a short timeout, explicitly switch over to Apple TV and wake it.
+
+That would turn the Pi into a more general “HDMI shepherd”: not just keeping ARC pinned to the receiver when something is playing, but also steering the system back to a sane default when nothing is.
 
 There’s probably a small cottage industry of “two-page CEC scripts” waiting to be written. If you adapt this trick for some other HDMI-CEC horror story, send me the packet traces—I’m collecting folklore.

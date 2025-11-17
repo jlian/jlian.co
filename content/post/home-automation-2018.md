@@ -1,9 +1,8 @@
 ---
 title: "State of my home automation in 2018"
 date: 2018-11-21T20:07:29-08:00
-draft: true
 featured_image: "/images/home.jpg"
-description: "The absolute best guide to home automation money can buy"
+description: "Maximalist tour of how I automated an apartment way past reasonable."
 ---
 
 Since moving to Seattle I have been gradually automating an ordinary apartment. The goal is not to build a trade-show demo; it is to make the lights, TV, door, and vacuum respond consistently. Online discussions often highlight the worst connected gadgets, but with some patience (and a few hubs) the living room can anticipate daily routines instead of fighting them.
@@ -12,7 +11,7 @@ Since moving to Seattle I have been gradually automating an ordinary apartment. 
 
 The automation itch started in the laziest way possible: I was already under the blanket and wished the lamp would turn off by itself. That nudge toward [Philips Hue](https://www.philips-hue.com) led to [HomeKit](https://www.apple.com/ios/home/), which led to buying a [Raspberry Pi](https://www.raspberrypi.org) at 1 a.m. because I could not believe there was no native way to control the TV. Once one subsystem cooperated, every other annoyance turned into a candidate for automation. The snapshot below shows the apartment as it stands today.
 
-![Placeholder – wide shot of the Seattle apartment with lamps glowing in pastel colors, TV idle, and the Hue Bridge hiding in the media console.](PLACEHOLDER: capture a living-room overview that shows multiple automated devices.)
+![Living room overview with Hue-lit lamps, TV idle, and the automation rack tucked away](/images/posts/home-automation/living-room.jpg)
 
 ## Lamps: the entry point
 
@@ -21,7 +20,7 @@ Hue bulbs are still the friendliest introduction to [home automation](https://en
 - Hardware: Hue Bridge v2, six A19 color bulbs, one Lightstrip Plus, two Hue Dimmer remotes.
 - Software: Home app automations for sunrise and sunset, Hue app for color scenes, HomeKit scenes for pairing with motion sensors later.
 
-![Placeholder – detail photo of a Hue bulb in the bedside lamp with the dimmer remote on the nightstand.](PLACEHOLDER: close-up of bedside setup.)
+![Hue lamp glow with Home app scene tiles pulled up on the iPad](/images/home.jpg)
 
 Hue's value is less in the rainbow gimmick and more in the automation primitives: every lamp reports state, exposes brightness, and can join a HomeKit scene. Once lamps became dependable, it felt reasonable to replace the wall switches entirely.
 
@@ -63,8 +62,6 @@ The [August Smart Lock](https://august.com/products/august-smart-lock-pro-connec
 - Geo-fence auto-unlock is set to the small radius so the lock does not open when I walk past the building.
 - A HomeKit automation runs the `Arrive Home` scene when the door unlocks after sunset: hallway lights pop to 100%, speakers fade in a playlist, main lamps come up to 70%.
 
-![Placeholder – close-up of the interior side of the August lock mounted on the door, battery cover off showing internals.](PLACEHOLDER: interior door photo.)
-
 Home sharing is the weak link. August's invite expires immediately if the other person does not open the email. The workaround is to add roommates to HomeKit directly and let them control the lock that way.
 
 ## Wall switches: replacing the habit
@@ -75,8 +72,6 @@ Hue bulbs make lamps smart, but guests still reach for the wall switch out of ha
 - Software: Lutron app schedules for overnight dimming, HomeKit exposure for consistency across rooms.
 
 Installation took an afternoon and delivered two immediate benefits: physical switches now trigger scenes (not just on/off), and the living room lights participate in automations even when someone insists on using real buttons. Caseta also integrates with Google Assistant, which keeps guests happy.
-
-![Placeholder – photo of a Lutron dimmer with a Pico remote mounted in a fake switch plate.](PLACEHOLDER: wall switch detail.)
 
 ## Voice control in practice
 
@@ -140,7 +135,7 @@ Backlog highlights right now:
 - Automatic music: imagine [Sonos](https://www.sonos.com/) powering up with `Arrive Home`. Requires a speaker upgrade and some [Spotify Connect](https://www.spotify.com/us/connect/) scripting.
 - Coffee: once the kettle and grinder join the party, morning automation graduates from novelty to necessity.
 
-![Placeholder – aspirational photo of the living room with daylight shades down, thermostat visible, and coffee gear staged neatly.](PLACEHOLDER: staged future-state photo.)
+![Future-state mockup with shades down, thermostat upgraded, and coffee gear ready](/images/posts/home-automation/future-state.jpg)
 
 ## What is working so far
 

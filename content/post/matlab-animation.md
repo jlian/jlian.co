@@ -1,7 +1,7 @@
 ---
 date: 2015-05-20T20:07:29-08:00
 title: "Efficient animation with MATLAB"
-description: "A guide to fast and flexible animation techniques in MATLAB."
+description: "Nerdy flex on squeezing smooth animations out of pre-2014 MATLAB."
 featured_image: "/images/thesis.jpg"
 tags: [MATLAB, thesis]
 ---
