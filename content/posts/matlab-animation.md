@@ -110,7 +110,7 @@ You can download the other script to see how this can be implemented. It looks l
 
 Full source:
 
-{{< gist jlian 58b7ddc6b013ba2564914eda4a94ec49 >}}
+{{< github-button href="https://gist.github.com/jlian/58b7ddc6b013ba2564914eda4a94ec49#file-animate-multiple-sin-matlab-m" label="Gist" >}}
 
 ## An example from MathWorks
 

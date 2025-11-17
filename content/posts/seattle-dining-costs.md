@@ -49,6 +49,8 @@ I shared this with my friends only initially but it seemed like there might be [
 
 Because I lifted the data and methodology from Numbeo and Holidu I don't know exactly how trustworthy they are. But I couldn't find a better approach, so I'd  love to see if others have done this analysis with more rigor.
 
-Full data and ranking here: [https://gist.github.com/jlian/11077b648044d1d7dcd98dcb86def748](https://gist.github.com/jlian/11077b648044d1d7dcd98dcb86def748)
+Full data and ranking here: 
+
+{{< github-button href="https://gist.github.com/jlian/11077b648044d1d7dcd98dcb86def748" label="Gist" >}}
 
 *[Join the discussion on /r/Seattle](https://www.reddit.com/r/Seattle/comments/13ukdt0/seattle_is_the_16_most_expensive_city_in_the/).*
