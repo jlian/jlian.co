@@ -3,7 +3,7 @@ title:  "Get reliable connection with your HomeKit devices"
 date: 2018-02-19T19:33:06-05:00
 tags: [home automation, homekit, home networking, wifi]
 featured_image: "/images/home2.jpg"
-description: "Wi-Fi purgatory story ending with HomeKit finally ditching “No Response.”"
+description: "Wow, I thought I'd never stop seeing \"No Response\"."
 ---
 
 *Update June 2021: people felt the methods in this post are [too extreme](https://www.reddit.com/r/HomeKit/comments/b72vii/how_i_completely_fixed_not_responding/). Fortunately, ASUS has since published [a new support article on this topic](https://www.asus.com/support/FAQ/1042475/), and I've heard that it works better. I haven't tried it myself since I changed to eero (which works perfect with HomeKit) more than a year ago. Original post below.*

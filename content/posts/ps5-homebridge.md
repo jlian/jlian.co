@@ -3,7 +3,7 @@ title: "PS5 works great with homebridge now"
 date: 2021-12-14T00:59:04Z
 tags: [home automation, homebridge, ps5, homekit, hdmi, hdmi-cec]
 featured_image: "/images/posts/ps5-homebridge/lab-ps5.jpg"
-description: "Playactor-powered recipe to make PS5 automations behave inside HomeKit."
+description: "Homebridge to the rescue for HDMI-CEC woes, again."
 ---
 
 ## Steps I took

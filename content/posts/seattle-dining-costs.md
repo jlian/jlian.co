@@ -3,7 +3,7 @@ title: "Seattle is the #16 most expensive city in the world for dining, #5 in th
 date: 2023-05-29T04:08:27Z
 tags: [seattle, dining, data, curiosities]
 featured_image: "/images/posts/seattle-dining-costs/seattle.jpeg"
-description: "Foodie data dive ranking Seattle’s dinner bill against the world."
+description: "I thought it was going to be top 10."
 ---
 
 *(Among cities with population of 100,000 or more)*

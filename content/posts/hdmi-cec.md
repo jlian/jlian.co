@@ -1,9 +1,9 @@
 ---
-title: "Fixing HDMI-CEC weirdness with a Raspberry Pi and a $5 cable"
+title: "Fix HDMI-CEC weirdness with a Raspberry Pi and a $7 cable"
 date: 2025-11-15T10:00:00-07:00
 tags: [home theater, hdmi-cec, raspberry pi, home automation, hdmi]
 featured_image: "/images/posts/hdmi-cec/featured.jpg"
-description: "Revenge tale where a $5 cable and Raspberry Pi bully Samsung + Denon into behaving."
+description: "Revenge tale against Consumer Electronics \"Control\"."
 ---
 
 For years I treated [HDMI-CEC](https://en.wikipedia.org/wiki/Consumer_Electronics_Control) like a house spirit: sometimes helpful, mostly temperamental, never fully understood. My living-room stack is straightforward: Samsung TV on [ARC](https://en.wikipedia.org/wiki/HDMI#ARC_and_eARC) (NOT eARC - story for another day), Denon AVR-X1700H hidden in a closet, Apple TV plus a bunch of consoles connected to the receiver, and a [Raspberry Pi 4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) already doing [Homebridge](https://homebridge.io/) duty. When it comes to CEC, the Apple TV handles it like a dream, but every console behaves like it missed the last week of CEC school. They wake the TV, switch the input, then leave the Denon asleep so I’m back to toggling audio outputs manually.

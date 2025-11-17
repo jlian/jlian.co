@@ -3,7 +3,7 @@ title: "\"Vision Pro's passthrough isn't depth-correct\"...?"
 date: 2024-03-15T23:25:14Z
 tags: [vision pro, passthrough, xr, curiousities]
 featured_image: "/images/posts/vision-pro-passthrough/vision-pro.jpeg"
-description: "Deep dive on why Vision Pro’s passthrough feels good despite the math."
+description: "Cannot figure out Vision Pro’s passthrough feels good despite the math."
 ---
 
 This is a long post. **TL;DR: what did Apple do to make Vision Pro's passthrough not feel like crap despite not being depth-correct?**

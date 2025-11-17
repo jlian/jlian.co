@@ -3,7 +3,7 @@ title: "Cleaned up the network/media closet"
 date: 2022-12-27T08:00:00-07:00
 tags: [home theater, home networking, wiring, cable management, hdmi]
 featured_image: "/images/posts/media-closet/01-closet-overview.jpg"
-description: "Closet glow-up full of patch panels, storage hacks, and before/after receipts."
+description: "Closet glow-up full of patch panels, storage hacks, and before/after."
 ---
 
 One closet to house all our networking and media equipment. Most of the hard work was done by the previous owner with the CAT6, HDMI, and speaker wires all in wall.
