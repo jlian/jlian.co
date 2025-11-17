@@ -10,7 +10,7 @@ For years I treated [HDMI-CEC](https://en.wikipedia.org/wiki/Consumer_Electronic
 
 ![My media closet where all the consoles are](/images/posts/hdmi-cec/media-closet.jpg)
 
-> I documented the [media closet build-out](/post/media-closet/) separately, so if you want the full wiring tour (and the before/after photos), start there.
+> I documented the [media closet build-out](/posts/media-closet/) separately, so if you want the full wiring tour (and the before/after photos), start there.
 
 With the media closet, rewiring everything to the TV wasn’t an option and disabling CEC wasn’t viable (Apple TV works and it gets the most use). My first instinct was to lean on traditional automation stacks: HomeKit scenes to chain “TV on” into “receiver on” or wattage triggers via an [Eve Energy](https://www.evehome.com/en/eve-energy) plug. This kind of worked, but every extra layer added 30 seconds of lag or more. The last stop on that journey was a [`homebridge-cec-tv-control` plugin](https://github.com/electroflame/homebridge-cec-tv-control), but while reading the README I realized I was about to pipe CEC messages through Node, Homebridge, and HomeKit before they hit the receiver. *The Pi is wired into the rack already, so skipping those layers and going through `/dev/cec0` directly was clearly the faster path.*
 
