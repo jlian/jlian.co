@@ -2,6 +2,7 @@
 title: "State of my home automation in 2018"
 date: 2018-11-21T20:07:29-08:00
 featured_image: "/images/home.jpg"
+tags: [home automation, homekit, raspberry pi, philips hue, lg webos, logitech harmony, august smart lock, lutron caseta, xiaomi vacuum, twilio, homebridge]
 description: "Maximalist tour of how I automated an apartment way past reasonable."
 ---
 

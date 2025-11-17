@@ -1,7 +1,6 @@
 {{ $currentPageUrl := .RelPermalink }}
 {{ if .Params.tags }}
-  {{ $name := index .Params.tags 0 }}
-  {{ $name := $name | urlize }}
+  {{ $name := lower (index .Params.tags 0) }}
   {{ $tags := index .Site.Taxonomies.tags $name }}
   {{ $i := $tags | len }}
   {{ if ge $i 2 }}

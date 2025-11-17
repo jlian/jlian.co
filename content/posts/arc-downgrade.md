@@ -2,7 +2,7 @@
 title: "When “downgrading” to ARC fixes everything"
 date: 2025-11-20T09:00:00-08:00
 draft: true
-tags: [home theater, hdmi, arc, samsung, denon]
+tags: [home theater, hdmi, arc, samsung, denon, hdmi-cec]
 featured_image: "/images/posts/arc-downgrade/featured-new.png"
 description: "Backing away from Samsung eARC on the S95B made the audio stack calm down."
 ---

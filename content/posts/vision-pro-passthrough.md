@@ -1,7 +1,7 @@
 ---
 title: "\"Vision Pro's passthrough isn't depth-correct\"...?"
 date: 2024-03-15T23:25:14Z
-tags: [vision pro, passthrough, xr]
+tags: [vision pro, passthrough, xr, curiousities]
 featured_image: "/images/posts/vision-pro-passthrough/vision-pro.jpeg"
 description: "Deep dive on why Vision Pro’s passthrough feels good despite the math."
 ---
