@@ -64,7 +64,7 @@ And the key opcodes we ended up caring about:
 
 ## Monitoring the CEC bus with `cec-client`
 
-The Raspberry Pi 4 I have exposes `/dev/cec0` interface on its micro-HDMI, and with a $5 micro-HDMI to HDMI cable plugged into HDMI input port on the receiver, it's possible to monitor CEC traffic from *everything connected to the receiver*.
+The Raspberry Pi 4 I have exposes `/dev/cec0` interface on its micro-HDMI, and with a $7 micro-HDMI to HDMI cable plugged into HDMI input port on the receiver, it's possible to monitor CEC traffic from *everything connected to the receiver*.
 
 ![Close-up photo of the Pi plugged into the TV’s ARC HDMI input, HDMI adapters visible](/images/posts/hdmi-cec/raspberry-pi-hdmi.jpg)
 
