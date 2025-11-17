@@ -29,6 +29,7 @@ pygmentsCodefences = true
   text_size = "fw3 f5 f5-l"
   featured_image = "/images/seattle.jpg"
   recent_posts_number = 6
+  mainSections = ["posts"]
 
 [markup]
   [markup.goldmark]
