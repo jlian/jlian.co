@@ -1,19 +1,15 @@
 ---
-title: "Pics"
+title: "Photos"
 #description: "Some examples of my photography work."
 tags: [images, photography]
-featured_image: "/images/cambodia.jpg"
+featured_image: "/images/seattle2.jpg"
 ---
-
-I enjoy taking photos for my own viewing. I'm also a strong believer in creative commons and sharing my work for everyone.
-
-### Wikimedia Commons
 
 Some of my favorite images are available on Wikimedia Commons, which means they are free for anyone to use [under certain conditions](https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia).
 
 [See my Wikipedia profile and gallery here](https://en.wikipedia.org/wiki/User:Lianguanlun). 
 
-### Gallery
+## Gallery
 
 <figure>
 	<a class="fl-ns w-50 pa1"href="https://commons.wikimedia.org/wiki/File:Montreal_from_above_Mont_Royal.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Montreal_from_above_Mont_Royal.jpg/800px-Montreal_from_above_Mont_Royal.jpg"></a>

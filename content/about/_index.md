@@ -4,17 +4,15 @@ date: 2018-02-21T20:59:39-08:00
 featured_image: "/images/about/about.jpeg"
 ---
 
+I’m a product manager at Microsoft helping IRL devices talk to the cloud reliably and securely:
 
-I'm a PM at [Microsoft Azure IoT](https://azure.microsoft.com/overview/iot/), mostly working on [Azure IoT Operations](https://azure.microsoft.com/products/iot-operations). I also worked on IoT Edge and IoT Hub earlier.
+- Currently, I'm working on [Azure IoT Operations](https://azure.microsoft.com/products/iot-operations).
+- Previously, I worked on both [Azure IoT Edge](https://azure.microsoft.com/products/iot-edge/) and [Azure IoT Hub](https://azure.microsoft.com/products/iot-hub/).
+- Before that, I was on [Azure Billing and Cost Management](https://azure.microsoft.com/services/cost-management/).
 
-Before Microsoft, I studied Mechanical Engineering at McGill University, where I:
+Before *that*, I studied Mechanical Engineering at [McGill University](https://www.mcgill.ca/mecheng/), where I interned at [Bombardier](https://www.bombardier.com) and [Suncor](https://www.suncor.com), played in the [McGill Fight Band](https://mcgillathletics.ca), co-founded and mentored [FRC Team 4955 “LA Tech”](https://www.thebluealliance.com/team/4955), and did research with [Prof. Andrew Higgins](https://www.mcgill.ca/mecheng/andrew-j-higgins).
 
-- Interned at [Bombardier](http://commercialaircraft.bombardier.com/en/cseries.html) and [Suncor](http://www.suncor.com)
-- Played in the [McGill Fight Band](https://mcgillathletics.ca/sports/2012/12/6/1206121625.aspx)
-- Co-founded [FRC Team 4955 LA Tech](http://www.frc4955.com) and served as lead mentor
-- Did research with [Prof. Andrew Higgins](https://www.mcgill.ca/mecheng/facultystaff/staff/andrewhiggins)
-
-Prior to that, our family moved to Vancouver in 2004, but we're originally from [Xiamen, China](http://en.wikipedia.org/wiki/Xiamen).
+I grew up in [Xiamen](https://en.wikipedia.org/wiki/Xiamen), moved with my family to [Vancouver](https://en.wikipedia.org/wiki/Vancouver) in 2004, and now live in [Seattle](https://en.wikipedia.org/wiki/Seattle) with my own little family. Outside of work I split my time between [taking pictures of birds](https://www.reddit.com/r/borbs/comments/1o96bfu/hi_borb/), breaking and fixing home A/V and smart-home setups, [playing sax](https://www.youtube.com/watch?v=AUB7zEwuaF8), and planning the next trip.
 
 # Resume
 
