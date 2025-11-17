@@ -4,6 +4,17 @@
 
 New personal website built with Hugo. It's a replacement of my [old website](https://github.com/jlian/jlian.github.io) which was using Jekyll and Github Pages.
 
-## Hugo
+## Development
+
+### GitHub Codespaces
+
+This repository includes a Codespaces configuration that automatically sets up a complete Hugo development environment. Simply open the repository in Codespaces and everything will be ready to go, including Hugo 0.102.3 extended edition.
+
+To start the Hugo development server:
+```bash
+hugo server
+```
+
+### Local Development
 
 Build this with a `hugo` command. Tested with version 0.102.3.
