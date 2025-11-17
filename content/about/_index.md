@@ -4,7 +4,7 @@ date: 2018-02-21T20:59:39-08:00
 featured_image: "/images/about/about.jpeg"
 ---
 
-I’m a product manager at Microsoft helping IRL devices talk to the cloud reliably and securely:
+I’m a product manager at Microsoft helping IRL devices talk to the cloud:
 
 - Currently, I'm working on [Azure IoT Operations](https://azure.microsoft.com/products/iot-operations).
 - Previously, I worked on both [Azure IoT Edge](https://azure.microsoft.com/products/iot-edge/) and [Azure IoT Hub](https://azure.microsoft.com/products/iot-hub/).
