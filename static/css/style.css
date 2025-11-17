@@ -135,46 +135,46 @@ code {
 }
 
 /* post table styling */
-article table {
+article :where(table):not(:where(.gist *)) {
   width: 100%;
   border-collapse: collapse;
   margin: 1.5rem 0;
   font-size: 0.95rem;
-}
 
-article thead th {
-  background: #f6f8fa;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.8rem;
-}
-
-article th,
-article td {
-  border: 1px solid #e2e8f0;
-  padding: 0.6rem 0.75rem;
-}
-
-article tbody tr:nth-child(even) {
-  background: #fbfcfe;
-}
-
-article td:nth-child(1),
-article td:nth-child(4),
-article td:nth-child(5) {
-  text-align: right;
-}
-
-@media (max-width: 40em) {
-  article table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  thead th {
+    background: #f6f8fa;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
   }
 
-  article table th,
-  article table td {
-    white-space: nowrap;
+  th,
+  td {
+    border: 1px solid #e2e8f0;
+    padding: 0.6rem 0.75rem;
+  }
+
+  tbody tr:nth-child(even) {
+    background: #fbfcfe;
+  }
+
+  td:nth-child(1),
+  td:nth-child(4),
+  td:nth-child(5) {
+    text-align: right;
+  }
+
+  @media (max-width: 40em) {
+    & {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    th,
+    td {
+      white-space: nowrap;
+    }
   }
 }
 
