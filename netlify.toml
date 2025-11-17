@@ -6,3 +6,6 @@
   HUGO_VERSION = "0.102.3"
   HUGO_EXTENDED = "true"
   HUGO_ENV = "production"
+
+[context.production]
+  branch = "main"
