@@ -1,4 +1,5 @@
 baseURL = "https://jlian.co"
+min_version = "0.152.2"
 languageCode = "en-us"
 title = "John Lian"
 theme = "ananke"
@@ -6,7 +7,9 @@ theme = "ananke"
 MetaDataFormat = "yaml"
 DefaultContentLanguage = "en"
 SectionPagesMenu = "main"
-Paginate = 9 
+
+[pagination]
+  pagerSize = 9
 googleAnalytics = ""
 enableRobotsTXT = true
 pygmentsCodefences = true

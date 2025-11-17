@@ -22,9 +22,9 @@
       {{ partial "site-favicon.html" . }}
     {{ end }}
 
-    {{ with .Site.RSSLink }}
-      <link href="{{ . }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
-      <link href="{{ . }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />
+    {{ with site.Home.OutputFormats.Get "RSS" }}
+      <link href="{{ .Permalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
+      <link href="{{ .Permalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />
     {{ end }}
 
     {{/* NOTE: These Hugo Internal Templates can be found starting at https://github.com/spf13/hugo/blob/master/tpl/tplimpl/template_embedded.go#L158 */}}
