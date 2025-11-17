@@ -120,7 +120,9 @@ function enhanceToc() {
   if (!tocNav) return;
 
   const links = Array.from(tocNav.querySelectorAll('a[href^="#"]'));
-  if (!links.length || !('IntersectionObserver' in window)) return;
+  if (!links.length) return;
+
+  if (!('IntersectionObserver' in window)) return;
 
   const targets = links
     .map((link) => {

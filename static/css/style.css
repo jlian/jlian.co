@@ -302,19 +302,6 @@ article :where(table):not(:where(.gist *)) {
     border-color: #e5e7eb;
     color: #0f172a !important;
   }
-  .toc-container {
-    color: #dee3f0;
-  }
-  .toc-container .toc-heading {
-    color: #e2e8f0;
-  }
-  .toc-container a:hover,
-  .toc-container a:focus {
-    color: #f1f5f9;
-  }
-  .toc-container a.active {
-    color: #93c5fd;
-  }
   article thead th {
     background: #1f2933;
     color: #f8f8f2;
@@ -353,6 +340,25 @@ article :where(table):not(:where(.gist *)) {
   .social-link svg use {
     fill: currentColor !important;
     stroke: none !important;
+  }
+  .toc-container {
+    color: #dee3f0;
+  }
+  .toc-container .toc-heading {
+    color: #e2e8f0;
+  }
+  .toc-container a {
+    color: inherit;
+  }
+  .toc-container a:visited {
+    color: inherit;
+  }
+  .toc-container a:hover,
+  .toc-container a:focus {
+    color: #96ccff;
+  }
+  .toc-container a.active {
+    color: #77b2e3;
   }
 }
 
@@ -393,13 +399,17 @@ article :where(table):not(:where(.gist *)) {
   transition: color 0.15s ease;
 }
 
+.toc-container a:visited {
+  color: inherit;
+}
+
 .toc-container a:hover,
 .toc-container a:focus {
-  color: #5679da;
+  color: #96ccff;
 }
 
 .toc-container a.active {
-  color: #1d4ed8;
+  color: #357edd;
   font-weight: 500;
 }
 
