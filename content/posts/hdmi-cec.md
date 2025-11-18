@@ -358,10 +358,10 @@ There are still a couple of rough edges I haven’t tackled yet:
 
 - **My sunset TV automation can land on a dead input.** I have a HomeKit automation that turns the TV on around sunset. Most of the time that means Apple TV wakes up with a nice aerial screensaver. But if the last input before power-off was a console, the TV wakes to that HDMI port and just shows “no signal”, which confuses other people in the house.
 
-Both problems feel like they should be fixable with the same tooling. A future version of the Python helper could watch for “TV just powered on” **or** for the TV suddenly declaring itself Active Source after a console standby (maybe there's some specific pattern of frames). Then:
+Both problems feel like they should be fixable with the same tooling. The helper just needs to notice “TV is awake and nobody sensible is talking HDMI” moments—either right after power-on or when the TV promotes itself to Active Source because a console went to sleep. Once that trigger fires, the script could:
 
-1. Wait briefly to see if the TV declares itself Active Source (to avoid breaking internal apps like Netflix).
-2. If nothing besides the TV claims Active Source within a short timeout—or the only Active Source is the TV’s tuner—explicitly switch over to Apple TV and wake it.
+1. Give the bus a beat to let any other device declare itself Active Source (so internal apps or a waking console keep the spotlight).
+2. If the only Active Source after that pause is the TV’s tuner, explicitly switch to Apple TV and wake it back up.
 
 That would turn the Pi into a more general “HDMI shepherd”: not just keeping ARC pinned to the receiver when something is playing, but also steering the system back to a sane default when nothing is.
 
