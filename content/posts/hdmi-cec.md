@@ -358,10 +358,12 @@ There are still a couple of rough edges I haven’t tackled yet:
 
 - **My sunset TV automation can land on a dead input.** I have a HomeKit automation that turns the TV on around sunset. Most of the time that means Apple TV wakes up with a nice aerial screensaver. But if the last input before power-off was a console, the TV wakes to that HDMI port and just shows “no signal”, which confuses other people in the house.
 
-Both problems feel like they should be fixable with the same tooling. The helper just needs to notice “TV is awake and nobody sensible is talking HDMI” moments—either right after power-on or when the TV promotes itself to Active Source because a console went to sleep. Once that trigger fires, the script could:
+These problems are similar, but require slightly different solutions:
 
-1. Give the bus a beat to let any other device declare itself Active Source (so internal apps or a waking console keep the spotlight).
-2. If the only Active Source after that pause is the TV’s tuner, explicitly switch to Apple TV and wake it back up.
+1. **Console standby → TV becomes Active Source.** When a console goes to sleep it tends to release the bus and the TV politely promotes its tuner. The helper could watch for that very specific frame pair (console Standby, TV Active Source) and, after a short grace period, switch the input to Apple TV.
+2. **Sunset automation → no Active Source.** In this case the TV powers on but nobody (not even the TV) claims Active Source, so it sits on the last HDMI port showing “no signal.” The helper needs to detect “TV on, Denon asleep, no Active Source within N ms,” then wake both Apple TV and the receiver and switch inputs.
+
+Or maybe we could unify both by having a state machine that tracks “who was Active Source most recently” and automatically falls back to Apple TV whenever the bus goes quiet *or* the TV promotes itself. Either way, the Pi’s job is to make sure there’s always a sane outcome.
 
 That would turn the Pi into a more general “HDMI shepherd”: not just keeping ARC pinned to the receiver when something is playing, but also steering the system back to a sane default when nothing is.
 
