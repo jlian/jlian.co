@@ -1,7 +1,6 @@
 ---
 title: "When “downgrading” to ARC fixes everything"
 date: 2025-11-18T09:00:00-08:00
-draft: true
 tags:
 - home theater
 - hdmi
@@ -44,3 +43,7 @@ After that sequence the TV consistently booted to **Receiver (HDMI)** and stoppe
 ARC can’t send high-bandwidth sound like Dolby TrueHD / DTS-HD MA / multichannel LPCM from TV apps to the receiver. It still carries Dolby Digital 5.1. This is fine since we never use the TV apps anyway. Anything lossless that matters (Apple TV, consoles) already plugs into the Denon, so the change cost nothing.
 
 If your setup looks similar - a Samsung S95-series panel, eARC-capable AVR or soundbar, and recurring “why is it on TV Speakers again?” moments - start by disabling **HDMI eARC Mode**, let the TV fall back to ARC, and see if the system stabilizes before adding automation.
+
+[1]: https://eu.community.samsung.com/t5/tv/s95b-update-1651-defaults-the-output-to-tv-speakers-at-startup/td-p/11349869?utm_source=chatgpt.com "S95B Update 1651 defaults the output to TV Speakers at startup"
+[2]: https://en.community.sonos.com/home-theater-228993/samsung-s95c-and-sonos-arc-issues-with-earc-6888562?utm_source=chatgpt.com "Samsung S95C and Sonos Arc – issues with eARC"
+[3]: https://www.avforums.com/threads/samsung-tv-s95b-and-soundbar-q990b-settings.2420641/?utm_source=chatgpt.com "Samsung TV S95B and Soundbar Q990B Settings"
