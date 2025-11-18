@@ -262,7 +262,10 @@ article :where(table):not(:where(.gist *)) {
   :not(pre)>code {
     background: rgb(17, 17, 17);
     border-color: #2d2d2d;
-    color: #e4e4e4;
+    color: inherit;
+  }
+  a code {
+    color: inherit;
   }
   .highlight {
     background: #0f1117;
