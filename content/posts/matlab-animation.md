@@ -3,7 +3,9 @@ date: 2015-05-20T20:07:29-08:00
 title: "Efficient animation with MATLAB"
 description: "Nerdy flex on squeezing smooth animations out of pre-2014 MATLAB."
 featured_image: "/images/thesis.jpg"
-tags: [MATLAB, thesis]
+tags:
+- MATLAB
+- thesis
 ---
 
 I used animation to help me visualize some of the work I did for my [honours thesis](/projects/thesis.pdf) (PDF warning). Prior to [MATLAB R2014b's major graphics changes](http://www.mathworks.com/help/matlab/graphics-changes-in-r2014b.html), it wasn't exactly easy to create efficient animations with MATLAB, so I spent some time figuring out the best way to do it.

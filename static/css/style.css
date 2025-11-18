@@ -504,8 +504,14 @@ article :where(table):not(:where(.gist *)) {
   .chroma .c, .chroma .ch, .chroma .cm, .chroma .c1,
   .chroma .cs { color: #6272a4; }
   .chroma .cp, .chroma .cpf { color: #ff79c6; }
-  .chroma .gd { color: #ff5555; }
-  .chroma .gi { color: #50fa7b; }
+  .chroma .gd {
+    color: #ffb4ab;
+    background-color: rgba(190, 24, 93, 0.25);
+  }
+  .chroma .gi {
+    color: #c8facc;
+    background-color: rgba(16, 185, 129, 0.25);
+  }
   .chroma .go { color: #44475a; }
   .chroma .gh, .chroma .gu { color: #f8f8f2; }
 }

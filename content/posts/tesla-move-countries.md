@@ -1,7 +1,10 @@
 ---
 title: "Call Tesla if you move countries after making your Model 3 reservation"
 date: 2018-04-20T23:13:43Z
-tags: [tesla, model 3, logistics]
+tags:
+- tesla
+- model 3
+- logistics
 featured_image: "/images/posts/tesla-move-countries/tesla.jpeg"
 description: "Model 3 PSA reminding movers to call Tesla before their invite arrives."
 ---

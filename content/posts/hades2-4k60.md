@@ -1,7 +1,11 @@
 ---
 title: "To get 4K60 for Hades 2 on Switch 2, disable “120 Hz Output” in system settings"
 date: 2025-09-26T00:49:40Z
-tags: [home theater, nintendo switch 2, hades 2, hdmi]
+tags:
+- home theater
+- nintendo switch 2
+- hades 2
+- hdmi
 featured_image: "/images/posts/hades2-4k60/switch-tv.jpg"
 description: "Probably the world's smallest deal but no one else figured this out I think?"
 ---

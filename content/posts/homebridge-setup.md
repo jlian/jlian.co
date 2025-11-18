@@ -1,7 +1,10 @@
 ---
 title:  "Deal with Homebridge crashing"
 date: 2018-02-16T19:30:35-05:00
-tags: [home automation, homekit, homebridge]
+tags:
+- home automation
+- homekit
+- homebridge
 featured_image: "/images/homebridge.jpg"
 description: "Survival guide for when Homebridge faceplants every other day."
 ---

@@ -1,7 +1,10 @@
 ---
 title: "Mystery? Everclear 190 not actually illegal in Washington state?"
 date: 2023-03-29T20:13:36Z
-tags: [seattle, curiosities, liquor]
+tags:
+- seattle
+- curiosities
+- liquor
 featured_image: "/images/posts/everclear-190-wa/everclear-total-wine.jpg"
 description: "Liquor-store scavenger hunt proving Everclear 190 is secretly legal in WA."
 ---

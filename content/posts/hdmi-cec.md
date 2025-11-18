@@ -1,7 +1,12 @@
 ---
 title: "Fix HDMI-CEC weirdness with a Raspberry Pi and a $7 cable"
 date: 2025-11-15T10:00:00-07:00
-tags: [home theater, hdmi-cec, raspberry pi, home automation, hdmi]
+tags:
+- home theater
+- hdmi-cec
+- raspberry pi
+- home automation
+- hdmi
 featured_image: "/images/posts/hdmi-cec/featured.jpg"
 description: "Revenge tale against Consumer Electronics \"Control\"."
 ---
@@ -261,7 +266,7 @@ No `-m` here. `cec-client` still prints all the traffic, but now it also accepts
 
 It took some trial and error, but it wasn't too difficult to write a small Python program that watches for consoles waking up and sends the magic `15:70:00:00` command when needed. I put it all on GitHub:
 
-{{< github-button href="https://github.com/jlian/cec_auto_audio" label="Download" >}}
+{{< github-button href="https://github.com/jlian/cec_auto_audio" label="jlian/cec_auto_audio" >}}
 
 The script logic goes:
 

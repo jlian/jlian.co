@@ -1,7 +1,11 @@
 ---
 title:  "Get reliable connection with your HomeKit devices"
 date: 2018-02-19T19:33:06-05:00
-tags: [home automation, homekit, home networking, wifi]
+tags:
+- home automation
+- homekit
+- home networking
+- wifi
 featured_image: "/images/home2.jpg"
 description: "Wow, I thought I'd never stop seeing \"No Response\"."
 ---

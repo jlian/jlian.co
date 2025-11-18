@@ -1,7 +1,9 @@
 ---
 date: 2015-05-24T20:07:29-08:00
 title: "Last day at robotics"
-tags: [LA Tech, frc]
+tags:
+- LA Tech
+- frc
 featured_image: "/images/latech2.jpeg"
 description: "Goodbye note proving robotics kids know how to make me cry."
 ---
