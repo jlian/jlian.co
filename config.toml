@@ -31,6 +31,7 @@ pygmentsCodefences = true
   body_classes = "sans-serif"
   text_size = "fw3 f5 f5-l"
   featured_image = "/images/seattle.jpg"
+  default_featured_image = "/images/default-featured.jpg"
   recent_posts_number = 6
   mainSections = ["posts"]
 
