@@ -12,7 +12,7 @@ For years I treated [HDMI-CEC](https://en.wikipedia.org/wiki/Consumer_Electronic
 
 > I documented the [media closet build-out](/posts/media-closet/) separately, so if you want the full wiring tour (and the before/after photos), start there.
 
-With the media closet, rewiring everything to the TV wasn’t an option and disabling CEC wasn’t viable (Apple TV works and it gets the most use). My first instinct was to lean on traditional automation stacks: HomeKit scenes to chain “TV on” into “receiver on” or wattage triggers via an [Eve Energy](https://www.evehome.com/en/eve-energy) plug. This kind of worked, but every extra layer added 30 seconds of lag or more. The last stop on that journey was a [`homebridge-cec-tv-control` plugin](https://github.com/electroflame/homebridge-cec-tv-control), but while reading the README I realized I was about to pipe CEC messages through Node, Homebridge, and HomeKit before they hit the receiver. *The Pi is wired into the rack already, so skipping those layers and going through `/dev/cec0` directly was clearly the faster path.*
+With the media closet, rewiring everything to the TV wasn’t an option and disabling CEC wasn’t viable (Apple TV works and it gets the most use). My first instinct was to lean on traditional automation stacks: HomeKit scenes to chain “TV on” into “receiver on” or wattage triggers via an [Eve Energy](https://www.evehome.com/en/eve-energy) plug. This kind of worked, but every extra layer added 30 seconds of lag or more. The last stop on that journey was a [`homebridge-cec-tv-control` plugin](https://github.com/electroflame/homebridge-cec-tv-control), but while reading the README I realized I was about to pipe CEC messages through Node, Homebridge, and HomeKit before they hit the receiver. The Pi is wired into the rack already, so skipping those layers and going through `/dev/cec0` directly was clearly the faster path.
 
 After an evening of struggling, the Pi now sits quietly on the HDMI bus, watching for consoles to announce themselves and issuing the single command Samsung + Denon should have exchanged on their own.
 
@@ -20,9 +20,9 @@ This post follows the structure of my notes: build a small mental model of CEC, 
 
 ## Small HDMI-CEC primer
 
-*[High-Definition Multimedia Interface](https://en.wikipedia.org/wiki/HDMI) [Consumer Electronics Control](https://en.wikipedia.org/wiki/Consumer_Electronics_Control)*, much better known as **HDMI-CEC**, is a low-bandwidth side channel that rides alongside HDMI video/audio. Everyone on the bus speaks in *logical addresses* (`0` for TV, `5` for audio systems, `4/8/B`[^hex] for playback devices, etc.) and tiny *opcodes*[^cec-frame] such as `0x82` (**Active Source**) or `0x72` (**Set System Audio Mode**). Physical addresses are “lat/long” references inside the topology, so `3.0.0.0` can mean “AVR input source HDMI 3”.
+*[High-Definition Multimedia Interface](https://en.wikipedia.org/wiki/HDMI) [Consumer Electronics Control](https://en.wikipedia.org/wiki/Consumer_Electronics_Control)*, much better known as **HDMI-CEC**, is a low-bandwidth side channel that rides alongside HDMI video/audio. Everyone on the bus speaks in *logical addresses* (`0x0` for TV, `0x5` for audio systems, `0x4/0x8/0xB`[^hex] for playback devices, etc.) and tiny *opcodes*[^cec-frame] such as `0x82` (**Active Source**) or `0x72` (**Set System Audio Mode**). Physical addresses are “lat/long” references inside the topology, so `3.0.0.0` can mean “AVR input source HDMI 3”.
 
-[^hex]: CEC logical addresses are usually written in hex, so `11` decimal = `0xB` hex = `Playback 3`.
+[^hex]: CEC logical addresses are usually written in hex, so `11` decimal = `0xB` hex = `Playback 3`. To make things even more confusing, `cec-client` uses hex for logical addresses but trims the `0x` prefix. For this psot I include `0x` prefixes for clarity.
 
 [^cec-frame]: Super confusing, using https://www.cec-o-matic.com is really helpful.
 
@@ -30,30 +30,12 @@ CEC is *supposed to* help consumers control their electronics, so in a healthy s
 
 To debug that mess I first wrote down how every device identified itself on the bus. Here are the specific CEC roles in my home theater:
 
-- **TV** – logical address `0`
-- **Audio system (Denon AVR-X1700H)** – logical address `5`
-- **Playback devices** – logical addresses `4`, `8`, `B` (Apple TV, PS5, Switch 2 and Xbox all competing for the three playback slots[^playback-limit])
-- **Broadcast** – logical address `F` (messages to everyone)
+- **TV** – logical address `0x0`
+- **Audio system (Denon AVR-X1700H)** – logical address `0x5`
+- **Playback devices** – logical addresses `0x4`, `0x8`, `0xB` (Apple TV, PS5, Switch 2 and Xbox all competing for the three playback slots[^playback-limit])
+- **Broadcast** – logical address `0xF` (messages to everyone)
 
-[^playback-limit]: Amazingly, HDMI-CEC only defines only [**three** playback logical addresses](https://feintech.eu/en/blogs/know-how/wozu-dient-hdmi-cec): `4` (Playback 1), `8` (Playback 2), and `11`/`B` (Playback 3). That’s fine if you have one streaming box and a couple of consoles. I had **four** playback-class boxes (Apple TV, PS5, Switch 2, Xbox) connected to the Denon. According to HDMI-CEC, only three of them can ever be “real” playback devices at once, so when the fourth one wakes up the TV and AVR have to reshuffle logical addresses on the fly. In practice this looked unhinged: if the Switch was on, changing input to Xbox was impossible, I'd get a quick black screen and the input snaps back to Xbox. This is wild, but fortunately I only use one console at a time so it’s not a big deal. Probably not worth trying to fix.
-
-Topology-wise, it looks like this:
-
-```mermaid
-graph LR
-  TV["TV (logical 0, phys 0.0.0.0)"]
-  AVR["Denon AVR (Audio, logical 5, phys 3.0.0.0)"]
-  ATV["Apple TV (Playback 2, logical 4, phys 3.2.0.0)"]
-  PS5["PS5 (Playback 3, logical B, phys 3.6.0.0)"]
-  SW["Switch 2 (Playback 1, logical 8, phys 3.1.0.0)"]
-  XBOX["Xbox (Playback 1, logical 8, phys 3.4.0.0)"]
-
-  TV ---|HDMI ARC| AVR
-  AVR ---|HDMI| ATV
-  AVR ---|HDMI| PS5
-  AVR ---|HDMI| XBOX
-  AVR ---|HDMI| SW
-```
+[^playback-limit]: Amazingly, HDMI-CEC only defines only [**three** playback logical addresses](https://feintech.eu/en/blogs/know-how/wozu-dient-hdmi-cec): `0x4` (Playback 1), `0x8` (Playback 2), and `0xB` (Playback 3). That’s fine if you have one streaming box and a couple of consoles. I had **four** playback-class boxes (Apple TV, PS5, Switch 2, Xbox) connected to the Denon. According to HDMI-CEC, only three of them can ever be “real” playback devices at once, so when the fourth one wakes up the TV and AVR have to reshuffle logical addresses on the fly. In practice this looked unhinged: if the Switch was on, changing input to Xbox was impossible, I'd get a quick black screen and the input snaps back to Xbox. This is wild, but fortunately I only use one console at a time so it’s not a big deal. Probably not worth trying to fix.
 
 And the key opcodes we ended up caring about:
 
@@ -68,13 +50,70 @@ The Raspberry Pi 4 I have exposes `/dev/cec0` interface on its micro-HDMI, and w
 
 ![Close-up photo of the Pi plugged into the TV’s ARC HDMI input, HDMI adapters visible](/images/posts/hdmi-cec/raspberry-pi-hdmi.jpg)
 
-And [`libcec`](https://github.com/Pulse-Eight/libcec) gives us `cec-client`. To install it, use `sudo apt install cec-utils`. Then run a quick scan to see what devices are on the bus:
+I was initially hesitant because of some [Hue Play Sync Box](https://www.philips-hue.com/en-us/support/product/sync-box/100010#How_do_I_know_if_I_have_a_sync_box_4K_or_8K)[^sync box] trauma: every HDMI splitter or inline gadget I’ve tried in front of the TV caused weird [EDID](https://en.wikipedia.org/wiki/Extended_Display_Identification_Data) breakage, troubles with HDR negotiation, or outright signal loss. But once I understood the Pi *never sits in the middle* of the HDMI handshake my concerns went away. By plugging it into an unused HDMI input on the AVR, it behaves like just another participant on the shared CEC bus. No signal regeneration, no spoofed EDIDs, nothing for the rest of the chain to notice.
+
+[^sync box]: Not the new 8K one, the old 4K version that I was [trying to make work with my 4K120 setup](/posts/media-closet/).
+
+So the topology looks like this:
+
+```mermaid
+---
+config:
+  flowchart:
+    htmlLabels: false
+---
+flowchart LR
+  classDef pi fill:#ffd399,stroke:#f97316,stroke-width:3px,color:#111,font-weight:bold;
+  classDef misc fill:#1f2933,stroke:#4b5563,color:#f8fafc;
+
+  subgraph Media Closet
+    SW["`**Nintendo Switch 2**
+    Playback 1 @ 0x8
+    3.1.0.0`"]-- HDMI 1 ---AVR
+    ATV["`**Apple TV**
+    Playback 2 @ 0x4
+    3.2.0.0`"]-- HDMI 2 ---AVR
+    PI["`**Raspberry Pi**
+    Recorder 1 @ 0x1
+    3.3.0.0`"]-- micro HDMI to HDMI 3 ---AVR
+    PC["`**PC**
+    no CEC`"]-- HDMI 4 ---AVR
+    XBOX["`**Xbox Series X**
+    Playback 1 @ 0x8
+    3.5.0.0`"]-- HDMI 5 ---AVR
+    PS5["`**PS5**
+    Playback 3 @ 0xB
+    3.6.0.0`"]-- HDMI 6 ---AVR
+  end
+
+  subgraph Living Room
+    TV["`**Samsung S95B TV**
+    TV @ 0x0
+    0.0.0.0`"]
+  end
+
+  AVR["`**Denon AVR-X1700H**
+  Audio @ 0x5
+  3.0.0.0`"]-- HDMI Out to HDMI 3 (ARC) ---TV
+
+  class AVR,TV,SW,ATV,PC,XBOX,PS5 misc;
+  class PI pi;
+```
+
+Now, you can get `cec-client` from [`libcec`](https://github.com/Pulse-Eight/libcec). Install it with
+
+```bash
+sudo apt update
+sudo apt install cec-utils
+```
+
+Then do a quick scan to see which devices respond:
 
 ```bash
 echo "scan" | cec-client -s
 ```
 
-Example scan output from my setup:
+Example scan output from my setup below. As you can see, the Xbox and Switch both[^playback-limit] claim logical address `0x8`[^hex]:
 
 ```text
 CEC bus information
@@ -149,7 +188,7 @@ This command keeps the Pi quiet (monitor mode) yet gives you every bus transacti
 
 [^log]: the `-d` flag is a bitmask of log levels (`ERROR=1`, `WARNING=2`, `NOTICE=4`, `TRAFFIC=8`, `DEBUG=16`, `ALL=31`), which is why something like `-d 4` might show nothing interesting; the truth is hiding in [`libcec` source code](https://github.com/Pulse-Eight/libcec/blob/95d1c6965e38000f56776f4563f9763832a5a7c2/include/cectypes.h#L835-L843). So `-d 8` means “traffic only.” I originally tried `-d 4` (notice) and saw nothing when turning on Apple TV, which led to a small detour through `libcec`’s source. This was surprisingly under-documented and many sources had misleading info about it. 
 
-A line such as `TRAFFIC: [...] >> bf:82:36:00` means: logical `B` (PS5) broadcast Active Source (`0x82`) with physical address `3.6.0.0`. That’s the packet you expect any console to send when it wakes up.
+A line such as `TRAFFIC: [...] >> bf:82:36:00` means: logical `0xB` (PS5) broadcast Active Source (`0x82`) with physical address `3.6.0.0`. That’s the packet you expect any console to send when it wakes up.
 
 ## Figuring out the magic handshake
 
@@ -184,7 +223,7 @@ However, with [cec-o-matic.com](https://www.cec-o-matic.com), it was easy to cra
 ```
 
 Breaking it down:
-- `15` = source `1` (Recorder 1 = Pi) sends to destination 5 (Audio System = Denon)
+- `15` = source `0x1` (Recorder 1 = Pi) sends to destination `0x5` (Audio System = Denon)
 - `70` = opcode **System Audio Mode Request**
 - `00:00` = operands (TV’s physical address 0.0.0.0, plus “system audio status” = off/0, which Denon interprets as “please negotiate system audio mode and turn on ARC”)
 
@@ -228,39 +267,18 @@ The script logic goes:
 
 * Starts `cec-client -d 8` as a subprocess.
 * Parses `TRAFFIC` lines.
-* Watches for **Active Source (`0x82`)** from any **Playback** logical address (`4/8/B`).
+* Watches for **Active Source (`0x82`)** from any **Playback** logical address (`0x4/0x8/0xB`).
 * Tracks when the Denon last broadcast **Set System Audio Mode (`5f:72:01`)** so we don’t fight Apple TV or the TV’s own logic.
 * Sends `tx 15:70:00:00` at most once per console wake if nobody else has done it.
 
 A few notes:
 
 * The script **doesn’t hard-code** any device names, vendors, or physical addresses.
-* It treats **any Playback logical address** (`4/8/B`) turning into Active Source as a “console wake” event.
+* It treats **any Playback logical address** (`0x4/0x8/0xB`) turning into Active Source as a “console wake” event.
 * It stays **passive** when Apple TV / Samsung / Denon manage to do the right thing themselves (because we observe a real `5f:72:01`).
 * It runs as a single long-lived process tied to a single `cec-client` instance.
 
-To make sure it starts on boot and keeps running, I wrapped it in a simple `systemd` service. The unit file looks like this:
-
-```ini
-[Unit]
-Description=CEC auto audio helper (Denon + consoles)
-After=network.target
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/python3 /opt/cec-auto-audio/cec_auto_audio.py
-Restart=on-failure
-User=pi
-Group=pi
-WorkingDirectory=/opt/cec-auto-audio
-StandardOutput=journal
-StandardError=journal
-
-[Install]
-WantedBy=multi-user.target
-```
-
-The full setup instructions are in the GitHub repo’s README.
+To make sure it starts on boot and keeps running, I wrapped it in a simple `systemd` service. The unit file I used [can be found in the GitHub README](https://github.com/jlian/cec_auto_audio?tab=readme-ov-file#running-as-a-systemd-service). I've been running it for a few days and feels rock solid.
 
 ## Generalizing this approach
 
@@ -298,7 +316,7 @@ Maybe your issue isn’t consoles not engaging the AVR. Maybe DTS never negotiat
    
    to use `cec-client` in interactive mode, then type `tx ...` for your suspected magic packet, and see if anything changes. If not, try again with a different frame.
 
-   You likely would want to start with a frame like `1f:...` (Pi logical address as Recording 1  `1` to Broadcast `F`), or `15...` (Pi to Audio System `5`), depending on what you’re trying to achieve.
+   You likely would want to start with a frame like `1f:...` (Pi logical address as Recording 1 `0x1` to Broadcast `0xF`), or `15...` (Pi to Audio System `0x5`), depending on what you’re trying to achieve.
 
 6. **Wrap it in code**. Once you know the magic packet, wrap it in a tiny program like the one above and let the Pi quietly participate on the bus.
 
@@ -340,10 +358,10 @@ There are still a couple of rough edges I haven’t tackled yet:
 
 - **My sunset TV automation can land on a dead input.** I have a HomeKit automation that turns the TV on around sunset. Most of the time that means Apple TV wakes up with a nice aerial screensaver. But if the last input before power-off was a console, the TV wakes to that HDMI port and just shows “no signal”, which confuses other people in the house.
 
-Both problems feel like they should be fixable with the same tooling. A future version of the Python helper could watch for “TV just powered on” and then:
+Both problems feel like they should be fixable with the same tooling. A future version of the Python helper could watch for “TV just powered on” **or** for the TV suddenly declaring itself Active Source after a console standby (maybe there's some specific pattern of frames). Then:
 
 1. Wait briefly to see if the TV declares itself Active Source (to avoid breaking internal apps like Netflix).
-2. If nothing claims Active Source within a short timeout, explicitly switch over to Apple TV and wake it.
+2. If nothing besides the TV claims Active Source within a short timeout—or the only Active Source is the TV’s tuner—explicitly switch over to Apple TV and wake it.
 
 That would turn the Pi into a more general “HDMI shepherd”: not just keeping ARC pinned to the receiver when something is playing, but also steering the system back to a sane default when nothing is.
 
