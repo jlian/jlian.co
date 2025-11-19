@@ -5,7 +5,7 @@ tags: [images, photography]
 featured_image: "/images/seattle2.jpg"
 ---
 
-Some of the favorite photos I've taken are available on Wikimedia Commons, which means they are free for anyone to use [under certain conditions](https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia).
+Some of my photos are on Wikimedia Commons and are available for anyone to use [as long as they follow the reuse rules](https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia).
 
 [See my Wikipedia profile and gallery here](https://en.wikipedia.org/wiki/User:Lianguanlun). 
 

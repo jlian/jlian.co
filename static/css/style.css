@@ -247,6 +247,9 @@ article :where(table):not(:where(.gist *)) {
   .black{
     color:#e4e4e4;
   }
+  .black-80 {
+    color: #e4e4e4;
+  }
   .near-black{
       color:#e4e4e4;
   }
@@ -258,6 +261,11 @@ article :where(table):not(:where(.gist *)) {
   }
   .bg-light-gray {
     background-color: #272822;
+  }
+  input.bg-light-gray,
+  textarea.bg-light-gray {
+    color: #f7f7f7;
+    border: 1px solid #3b3b3b;
   }
   :not(pre)>code {
     background: rgb(17, 17, 17);
