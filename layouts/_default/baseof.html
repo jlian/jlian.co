@@ -32,6 +32,25 @@
     {{- template "_internal/schema.html" . -}}
     {{- template "_internal/twitter_cards.html" . -}}
 
+    {{/* Force an absolute social preview image so FB/Messenger shows a card */}}
+    {{- $ogImage := partial "func/GetFeaturedImage.html" . -}}
+    {{- if not $ogImage -}}
+      {{- with or .Params.og_image .Site.Params.default_featured_image .Site.Params.featured_image -}}
+        {{- $ogImage = . -}}
+      {{- end -}}
+    {{- end -}}
+    {{- with $ogImage }}
+      {{- $absolute := . -}}
+      {{- if not (hasPrefix $absolute "http") -}}
+        {{- $base := strings.TrimRight $.Site.BaseURL "/" -}}
+        {{- $path := strings.TrimLeft (strings.TrimSpace $absolute) "/" -}}
+        {{- $absolute = printf "%s/%s" $base $path -}}
+      {{- end -}}
+      <meta property="og:image" content="{{ $absolute }}">
+      <meta name="twitter:image" content="{{ $absolute }}">
+      <meta name="twitter:card" content="summary_large_image">
+    {{- end -}}
+
   </head>
 
   <body class="ma0 {{ $.Param "body_classes"  | default "avenir bg-near-white"}}{{ with getenv "HUGO_ENV" }} {{ . }}{{ end }}">
