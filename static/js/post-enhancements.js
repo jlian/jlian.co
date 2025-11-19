@@ -3,6 +3,7 @@
     enhanceCodeBlocks();
     renderMermaid();
     enhanceToc();
+    enhanceFootnotes();
   };
 
   if (document.readyState === 'loading') {
@@ -159,5 +160,69 @@ function enhanceToc() {
 
   links.forEach((link) => {
     link.addEventListener('click', () => setActive(link));
+  });
+}
+
+function enhanceFootnotes() {
+  const refs = document.querySelectorAll('a.footnote-ref');
+  if (!refs.length) return;
+
+  const footnoteItems = document.querySelectorAll('.footnotes li[id]');
+  if (!footnoteItems.length) return;
+
+  const noteMap = new Map();
+  footnoteItems.forEach((item) => {
+    const clone = item.cloneNode(true);
+    const backref = clone.querySelector('.footnote-backref');
+    if (backref && backref.parentNode) {
+      backref.parentNode.removeChild(backref);
+    }
+
+    const paragraphs = clone.querySelectorAll('p');
+    let html = '';
+    if (paragraphs.length) {
+      html = Array.from(paragraphs)
+        .map((p) => p.innerHTML.trim())
+        .filter(Boolean)
+        .join('<br><br>');
+    } else {
+      html = clone.innerHTML.trim();
+    }
+
+    if (html) {
+      noteMap.set(item.id, html);
+    }
+  });
+
+  let tooltipIndex = 0;
+  refs.forEach((ref) => {
+    const hash = ref.getAttribute('href') || ref.hash;
+    if (!hash || hash.charAt(0) !== '#') return;
+    const targetId = decodeURIComponent(hash.slice(1));
+    if (!noteMap.has(targetId)) return;
+
+    const supHost = ref.closest('sup');
+    let wrapper = supHost;
+    if (wrapper) {
+      if (wrapper.dataset.footnoteEnhanced === 'true') return;
+      wrapper.classList.add('footnote-ref-wrapper');
+    } else {
+      if (!ref.parentNode || ref.parentNode.dataset.footnoteEnhanced === 'true') return;
+      wrapper = document.createElement('span');
+      wrapper.className = 'footnote-ref-wrapper';
+      ref.parentNode.insertBefore(wrapper, ref);
+      wrapper.appendChild(ref);
+    }
+    wrapper.dataset.footnoteEnhanced = 'true';
+
+    const tooltip = document.createElement('span');
+    tooltip.className = 'footnote-tooltip';
+    const tooltipId = `${targetId.replace(/[^a-zA-Z0-9_-]+/g, '-')}-tooltip-${tooltipIndex++}`;
+    tooltip.id = tooltipId;
+    tooltip.innerHTML = noteMap.get(targetId);
+    wrapper.appendChild(tooltip);
+
+    ref.setAttribute('aria-describedby', tooltipId);
+    ref.setAttribute('title', '');
   });
 }

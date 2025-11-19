@@ -428,6 +428,134 @@ article :where(table):not(:where(.gist *)) {
   margin: 1.5rem 0;
 }
 
+sup .footnote-ref {
+  text-decoration: none;
+  color: #357edd;
+  display: inline-flex;
+  gap: 0.05em;
+  align-items: center;
+  justify-content: center;
+  padding: 0.05em 0.25em;
+  line-height: 1;
+  border-radius: 0.35em;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease, background 0.15s ease;
+}
+
+sup .footnote-ref::before {
+  content: "[";
+}
+
+sup .footnote-ref::after {
+  content: "]";
+}
+
+sup .footnote-ref:visited {
+  color: #2b6cb0;
+}
+
+sup .footnote-ref:hover,
+sup .footnote-ref:focus {
+  text-decoration: underline;
+  color: #1d4ed8;
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.footnote-ref-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+sup.footnote-ref-wrapper {
+  display: inline;
+}
+
+.footnote-tooltip {
+  position: absolute;
+  bottom: calc(100% + 0.35rem);
+  left: 50%;
+  transform: translate(-50%, 0.35rem);
+  width: max-content;
+  max-width: min(26rem, 80vw);
+  padding: 0.75rem 1rem;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  color: #111;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+  pointer-events: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+  z-index: 30;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.footnote-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+
+.footnote-ref-wrapper:hover .footnote-tooltip,
+.footnote-ref-wrapper:focus-within .footnote-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.footnotes li {
+  scroll-margin-top: 5rem;
+  border-radius: 0.35rem;
+  padding: 0.2rem 0.4rem;
+  margin: 0.2rem 0;
+  transition: background 0.2s ease;
+}
+
+.footnotes li:target {
+  background: rgba(59, 130, 246, 0.22);
+}
+
+sup[id^="fnref"] {
+  scroll-margin-top: 5rem;
+}
+
+sup[id^="fnref"]:target {
+  background: rgba(59, 130, 246, 0.18);
+  border-radius: 0.35rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  sup .footnote-ref,
+  sup .footnote-ref:visited {
+    color: #77b2e3;
+  }
+  sup .footnote-ref:hover,
+  sup .footnote-ref:focus {
+    color: #96ccff;
+  }
+  .footnote-tooltip {
+    background: #0f172a;
+    color: #f8fafc;
+    box-shadow: 0 15px 35px rgba(2, 6, 23, 0.55);
+  }
+  .footnote-tooltip::after {
+    border-color: #0f172a transparent transparent transparent;
+  }
+  .footnotes li:target {
+    background: rgba(147, 197, 253, 0.22);
+  }
+  sup[id^="fnref"]:target {
+    background: rgba(147, 197, 253, 0.25);
+  }
+}
+
 /* Chroma syntax highlighting (light) */
 .chroma {
   background-color: transparent;
