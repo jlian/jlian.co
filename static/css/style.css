@@ -510,16 +510,24 @@ sup.footnote-ref-wrapper {
   transform: translate(-50%, 0);
 }
 
+.footnotes {
+  --footnote-highlight: rgba(59, 130, 246, 0.2);
+}
+
 .footnotes li {
   scroll-margin-top: 5rem;
+  margin: 0.35rem 0;
+}
+
+.footnotes li p {
   border-radius: 0.35rem;
-  padding: 0.2rem 0.4rem;
-  margin: 0.2rem 0;
+  padding: 0.3rem 0.6rem;
+  margin: 0;
   transition: background 0.2s ease;
 }
 
-.footnotes li:target {
-  background: rgba(59, 130, 246, 0.22);
+.footnotes li:target p {
+  background: var(--footnote-highlight);
 }
 
 sup[id^="fnref"] {
@@ -529,6 +537,12 @@ sup[id^="fnref"] {
 sup[id^="fnref"]:target {
   background: rgba(59, 130, 246, 0.18);
   border-radius: 0.35rem;
+}
+
+@media (hover: none) {
+  .footnote-tooltip {
+    display: none;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -548,11 +562,11 @@ sup[id^="fnref"]:target {
   .footnote-tooltip::after {
     border-color: #0f172a transparent transparent transparent;
   }
-  .footnotes li:target {
-    background: rgba(147, 197, 253, 0.22);
+  .footnotes {
+    --footnote-highlight: rgba(147, 197, 253, 0.3);
   }
   sup[id^="fnref"]:target {
-    background: rgba(147, 197, 253, 0.25);
+    background: rgba(147, 197, 253, 0.28);
   }
 }
 

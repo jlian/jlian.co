@@ -115,7 +115,7 @@ helm install nfs nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
 
 If you're running an older k3d release that predates the `/bin/k3d-entrypoint-*.sh` hook, set `K3D_FIX_CGROUPV2=false` before `k3d cluster create` so the custom entrypoint gets a chance to run.
 
-Once the cluster is up, new pods stop complaining about `Not supported`, PersistentVolumeClaims bind as `ReadWriteMany`, and I can keep iterating without leaving the Codespace. The repo README lists the exact environment I tested (`k3d` v5.5.1 inside `mcr.microsoft.com/devcontainers/universal:2-linux`) along with the Docker and kernel versions in case you need to compare notes. Here’s that setup at a glance:
+Once the cluster is up, new pods stop complaining about `Not supported`, PersistentVolumeClaims bind as `ReadWriteMany`, and I can keep iterating without leaving the Codespace. The repo README lists the exact environment I tested along with the Docker and kernel versions in case you need to compare notes. Here’s that setup at a glance:
 
 ```mermaid
 flowchart LR
