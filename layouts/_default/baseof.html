@@ -16,6 +16,7 @@
     {{ else }}
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
     {{ end }}
+    <link rel="canonical" href="{{ .Permalink }}">
 
     {{ partial "site-style.html" . }}
     {{ block "favicon" . }}
