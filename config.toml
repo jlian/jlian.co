@@ -21,7 +21,7 @@ pygmentsCodefences = true
 
 [params]
   custom_css = ["css/style.css"]
-  favicon = "/images/favicon.ico"
+  favicon = "/favicon.ico"
   description = "John Lian's personal website"
   twitter = "https://twitter.com/jlian"
   instagram = "https://www.instagram.com/jlian.irl/"
