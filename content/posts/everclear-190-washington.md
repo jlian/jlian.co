@@ -39,6 +39,6 @@ Unfortunately I'm completely hooked now. I email the LCB, but haven't received a
 
 So... Unless Total Wine is blatantly breaking the law, Everclear 190 must be legal in WA, right? If so, where's everyone getting that idea that it's illegal from? The PDF? Where's the law backing that?
 
-[*Join the discussion on /r/Seattle*](https://www.reddit.com/r/Seattle/comments/13ukdt0/seattle_is_the_16_most_expensive_city_in_the/).
+[*Join the discussion on /r/Seattle*](https://www.reddit.com/r/Seattle/comments/125zbmh/mystery_everclear_190_not_actually_illegal_in/).
 
 EDIT: solved https://reddit.com/r/Seattle/comments/125zbmh/_/je6y5rf/?context=1
