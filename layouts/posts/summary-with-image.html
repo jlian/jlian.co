@@ -1,14 +1,14 @@
 {{ $paramDefault := .Site.Params.default_featured_image | default "images/default-featured.jpg" }}
 {{ $rawImagePath := .Params.featured_image | default $paramDefault }}
 {{ $featured_image := (trim $rawImagePath "/") | absURL }}
-<div class="mid-gray overflow-hidden bb-m pv4-m b--black-10">
-  <div class="flex flex-column flex-row-m">
-    <div class="mb3 pr3-m mb0-m w-100 w-40-m">
+<div class="mid-gray overflow-hidden pv3">
+  <div class="flex flex-column">
+    <div class="mb3 w-100">
       <a href="{{ .RelPermalink }}" class="db dim aspect-ratio aspect-ratio--16x9">
         <div style="background: url('{{ $featured_image }}') center;" class="img aspect-ratio--object cover" alt="image from {{ .Title }}"></div>
       </a>
     </div>
-    <div class="w-100 w-60-m pl3-m">
+    <div class="w-100">
       {{ if .Date }}
         <div class="f7 dib ttu tracked">
           {{ .Date.Format "January 2, 2006" }}

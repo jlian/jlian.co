@@ -2,13 +2,13 @@
 {{ $hasFeaturedImage := .Params.featured_image }}
 {{ $rawImagePath := $hasFeaturedImage | default $paramDefault }}
 {{ $featured_image := (trim $rawImagePath "/") | absURL }}
-<div class="mid-gray overflow-hidden bb-ns pv4-ns b--black-10">
+<div class="mid-gray overflow-hidden bb-ns pv3 b--black-10">
   <div class="flex flex-column flex-row-ns">
     <div class="mb3 pr3-ns mb0-ns w-100 w-40-ns">
       <a href="{{ .RelPermalink }}" class="db dim aspect-ratio aspect-ratio--16x9">
         <div style="background: url('{{ $featured_image }}') center;" class="img aspect-ratio--object cover overflow-hidden flex" alt="image from {{ .Title }}">
             <div class="bg-black-20 cover w-100 dn-ns">
-                <div class="site-width pv3">
+                <div class="pa3">
                     <time class="f6 mb2 dib ttu tracked white-80">
                       {{ .Date.Format "January 2, 2006" }}
                     </time>

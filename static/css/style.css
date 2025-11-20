@@ -7,14 +7,14 @@
   padding-right: 1rem;
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 30rem) {
   .site-width {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 60em) {
   .site-width {
     padding-left: 2rem;
     padding-right: 2rem;
@@ -22,7 +22,32 @@
 }
 
 .posts-grid {
-  gap: 1rem; /* tweak as needed */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media screen and (min-width: 30rem) {
+  .posts-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 60rem) {
+  .posts-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+  }
+}
+
+.post-card {
+  display: flex;
+  height: 100%;
+}
+
+.post-card > * {
+  flex: 1 1 auto;
 }
 
 .personal {
@@ -572,9 +597,7 @@ sup[id^="fnref"]:target {
 .chroma {
   background-color: transparent;
 }
-.chroma .x { }
 .chroma .err { color: #a61717; background-color: #e3d2d2 }
-.chroma .cl { }
 .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
 .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; }
 .chroma .hl { background-color: #ffffcc }
