@@ -8,7 +8,7 @@ tags:
 - homekit
 - hdmi
 - hdmi-cec
-featured_image: "/images/posts/ps5-homebridge/lab-ps5.jpg"
+featured_image: "/images/posts/ps5-homebridge/ps5.jpg"
 description: "Homebridge to the rescue for HDMI-CEC woes, again."
 ---
 
