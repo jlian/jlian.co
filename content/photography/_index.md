@@ -2,7 +2,7 @@
 title: "Photos"
 #description: "Some examples of my photography work."
 tags: [images, photography]
-featured_image: "/images/seattle2.jpg"
+featured_image: "/images/rainier.jpg"
 ---
 
 I take photos with my [Sony α6700](https://en.wikipedia.org/wiki/Sony_%CE%B16700 "Sony α6700") and [DJI Phantom](https://en.wikipedia.org/wiki/DJI_Phantom "DJI Phantom"). I upload them to Wikimedia Commons so they can be reused on Wikipedia and elsewhere.

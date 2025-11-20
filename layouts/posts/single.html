@@ -7,7 +7,7 @@
   {{ $toc := .TableOfContents }}
   {{ $tocPlain := trim (plainify $toc) " \n\r\t" }}
   {{ $hasToc := gt (len $tocPlain) 0 }}
-  <div class="site-width flex-ns">
+  <div class="flex-ns">
     <article class="w-100 {{ if $hasToc }}w-70-l{{ end }} pv3 pv4-ns">
       <section class="measure-wide-ns nested-copy-line-height lh-copy {{ $.Param "text_size"  | default "f5 f4-l"}} nested-links nested-img dark-gray">
         {{ .Content }}

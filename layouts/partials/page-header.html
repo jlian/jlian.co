@@ -8,16 +8,34 @@
   {{ $.Scratch.Set "text_color" "white-80" }}
   <header class="cover bg-top" style="background: url('{{ $featured_image }}') center;">
     <div class="bg-black-20">
-      <div>
+      <div class="site-width">
         {{ partial "site-navigation.html" .}}
+        <div class="pv3">
+          <time class="f6 mb2 dib ttu tracked {{ $.Scratch.Get "text_color" }}" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+            {{ .Date.Format "January 2, 2006" }}
+          </time>
+          <h1 class="f2 f1-m f-subheadline-l lh-title mv0">
+            <span class="{{ $.Scratch.Get "transparency" }} lh-copy white pa1 tracked-tight sans-serif">
+              {{ .Title | default .Site.Title }}
+            </span>
+          </h1>
+          {{ with .Params.description  }}
+            <h2 class="f5 f4-m f3-l fw4 i {{ $.Scratch.Get "text_color" }}">
+              {{ . }}
+            </h2>
+          {{ end }}
+        </div>
       </div>
+    </div>
+  </header>
 {{ else }}
   <header>
     <div class="bg-gold">
       <div class="{{ .Site.Params.background_color_class | default "bg-black" }}">
-        {{ partial "site-navigation.html" . }}
+        <div class="site-width">
+          {{ partial "site-navigation.html" . }}
+        </div>
       </div>
-{{ end }}
       <div class="site-width pv3">
         <time class="f6 mb2 dib ttu tracked {{ $.Scratch.Get "text_color" }}" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
           {{ .Date.Format "January 2, 2006" }}
@@ -35,3 +53,4 @@
       </div>
     </div>
   </header>
+{{ end }}

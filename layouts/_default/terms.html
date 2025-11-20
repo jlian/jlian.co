@@ -5,18 +5,16 @@
       {{ .Content }}
     </div>
   </article>
-  <div class="site-width">
-    <section class="ph4">
-      {{ range $key, $value := .Data.Terms }}
-        <h2 class="f1">
-          <a href="{{ "/" | relLangURL }}{{ $.Data.Plural | urlize }}/{{ $key | urlize }}" class="link blue hover-black">
-            {{ $.Data.Singular | humanize }}: {{ $key }}
-          </a>
-        </h2>
-        {{ range $value.Pages }}
-          {{ partial "summary.html" . }}
-        {{ end }}
+  <section class="ph4">
+    {{ range $key, $value := .Data.Terms }}
+      <h2 class="f1">
+        <a href="{{ "/" | relLangURL }}{{ $.Data.Plural | urlize }}/{{ $key | urlize }}" class="link blue hover-black">
+          {{ $.Data.Singular | humanize }}: {{ $key }}
+        </a>
+      </h2>
+      {{ range $value.Pages }}
+        {{ partial "summary.html" . }}
       {{ end }}
-    </section>
-  </div>
+    {{ end }}
+  </section>
 {{ end }}
