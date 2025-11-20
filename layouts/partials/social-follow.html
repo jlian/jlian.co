@@ -1,37 +1,37 @@
 <!-- TODO: Add follow intents where available TODO: Revisit color and hover color -->
 {{ $icon_size := "24px" }}
 {{ with .Site.Params.wikipedia }}
-<a href="{{ . }}" class="link-transition wikipedia link social-link dib z-999 pv3" title="Wikipedia link">
+<a href="{{ . }}" class="link-transition wikipedia link social-link dib z-999 pv3 ml1" title="Wikipedia link">
   {{ partial "svg/wikipedia.svg" (dict "size" $icon_size) }}
 </a>
 {{ end }}
 {{ with .Site.Params.github }}
-<a href="{{ . }}" class="link-transition github link social-link dib z-999 pv3" title="Github link">
+<a href="{{ . }}" class="link-transition github link social-link dib z-999 pv3 ml1" title="Github link">
   {{ partial "svg/github.svg" (dict "size" $icon_size) }}
 </a>
 {{ end }}
 {{ with .Site.Params.linkedin }}
-<a href="{{ . }}" class="link-transition linkedin link social-link dib z-999 pv3" title="LinkedIn link">
+<a href="{{ . }}" class="link-transition linkedin link social-link dib z-999 pv3 ml1" title="LinkedIn link">
   {{ partial "svg/linkedin.svg" (dict "size" $icon_size) }}
 </a>
 {{ end }}
 {{ with .Site.Params.instagram }}
-<a href="{{ . }}" class="link-transition instagram link social-link dib z-999 pv3" title="Instagram link">
+<a href="{{ . }}" class="link-transition instagram link social-link dib z-999 pv3 ml1" title="Instagram link">
   {{ partial "svg/instagram.svg" (dict "size" $icon_size) }}
 </a>
 {{ end }}
 {{ with .Site.Params.youtube }}
-<a href="{{ . }}" class="link-transition youtube link social-link dib z-999 pv3" title="Youtube link">
+<a href="{{ . }}" class="link-transition youtube link social-link dib z-999 pv3 ml1" title="Youtube link">
   {{ partial "svg/youtube.svg" (dict "size" $icon_size) }}
 </a>
 {{ end }}
 {{ with .Site.Params.twitter }}
-<a href="{{ . }}" class="link-transition twitter link social-link dib z-999 pv3" title="Twitter link">
+<a href="{{ . }}" class="link-transition twitter link social-link dib z-999 pv3 ml1" title="Twitter link">
   {{ partial "svg/twitter.svg" (dict "size" $icon_size) }}
 </a>
 {{ end }}
 {{ with .Site.Params.facebook }}
-  <a href="{{ . }}" class="link-transition facebook link social-link dib z-999 pv3" title="Facebook link">
+  <a href="{{ . }}" class="link-transition facebook link social-link dib z-999 pv3 ml1" title="Facebook link">
     {{ partial "svg/facebook.svg" (dict "size" $icon_size) }}
   </a>
 {{ end }}
