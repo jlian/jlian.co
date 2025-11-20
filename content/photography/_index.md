@@ -5,23 +5,33 @@ tags: [images, photography]
 featured_image: "/images/seattle2.jpg"
 ---
 
-Some of my photos are on Wikimedia Commons and are available for anyone to use [as long as they follow the reuse rules](https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia).
+I take photos with my [Sony α6700](https://en.wikipedia.org/wiki/Sony_%CE%B16700 "Sony α6700") and [DJI Phantom](https://en.wikipedia.org/wiki/DJI_Phantom "DJI Phantom"). I upload them to Wikimedia Commons so they can be reused on Wikipedia and elsewhere.
 
-[See my Wikipedia profile and gallery here](https://en.wikipedia.org/wiki/User:Lianguanlun). 
+Unless otherwise noted, you're welcome to use my photos under their listed licenses as long as you provide proper attribution.
+
+For the full gallery, see my [Wikipedia profile](https://en.wikipedia.org/wiki/User:Lianguanlun). Some of my favourites are below.
 
 ## Gallery
 
-<figure>
-	<a class="fl-ns w-50 pa1"href="https://commons.wikimedia.org/wiki/File:Montreal_from_above_Mont_Royal.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Montreal_from_above_Mont_Royal.jpg/800px-Montreal_from_above_Mont_Royal.jpg"></a>
-	<a class="fl-ns w-50 pa1"href="https://commons.wikimedia.org/wiki/File:Aerial_view_of_Lac_du_Chevreuil.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Aerial_view_of_Lac_du_Chevreuil.jpg/800px-Aerial_view_of_Lac_du_Chevreuil.jpg"></a>
-</figure>
-
-<figure>
-	<a class="fl-ns w-50 pa1"href="https://commons.wikimedia.org/wiki/File:Jiuqu_Brook_in_Wuyi_Mountains.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Jiuqu_Brook_in_Wuyi_Mountains.jpg/800px-Jiuqu_Brook_in_Wuyi_Mountains.jpg"></a>
-	<a class="fl-ns w-50 pa1"href="https://commons.wikimedia.org/wiki/File:Street_corner_in_Hanoi.JPG"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Street_corner_in_Hanoi.JPG/800px-Street_corner_in_Hanoi.JPG"></a>
-</figure>
-
-<figure>
-	<a class="fl-ns w-50 pa1"href="https://commons.wikimedia.org/wiki/File:Hoi%27an_by_the_river.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Hoi%27an_by_the_river.jpg/800px-Hoi%27an_by_the_river.jpg"></a>
-	<a class="fl-ns w-50 pa1"href="https://commons.wikimedia.org/wiki/File:Aerial_view_of_Lac_Rheaume.jpg"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Aerial_view_of_Lac_Rheaume.jpg/800px-Aerial_view_of_Lac_Rheaume.jpg"></a>
-</figure>
+{{< commons-gallery >}}
+File:Jiuqu_Brook_in_Wuyi_Mountains.jpg
+File:Hongyadong_night_lights_Chongqing.jpg
+File:Sand_dunes_and_poplars_Nubra_Valley_Ladakh.jpg
+File:Sunset over Ponte Vecchio Florence.jpg
+File:Hoi'an_by_the_river.jpg
+File:Rocky_shoreline_near_Big_Sur_California.jpg
+File:Tufted_puffin_near_Smith_Island_Washington.jpg
+File:Space Needle with Olympics from Capitol Hill.jpg
+File:Gulls on picnic tables Seattle waterfront.jpg
+File:Black-throated blue warbler in Chicago park.jpg
+File:Fisherman rowing at dusk on Lake Como.jpg
+File:Waikiki surfers and sailboats at sunset.jpg
+File:Great blue heron with Mount Baker from Drayton Harbor.jpg
+File:Anna's hummingbird in Seattle garden.jpg
+File:Palm warbler on Lake Michigan shore Chicago.jpg
+File:Mount_Rainier_from_Skyline_Trail_wildflowers.jpg
+File:Varenna_ivy-clad_waterfront_and_waterfall.jpg
+File:Haleakala_Observatory_above_clouds_sunrise_Maui.jpg
+File:Rhesus macaque along trail Zhangjiajie Hunan.jpg
+File:Saddled yak at Pangong Lake Ladakh.jpg
+{{< /commons-gallery >}}

@@ -1,0 +1,45 @@
+{{/* 
+Renders a simple masonry gallery for Wikimedia Commons files.
+Usage:
+{{< commons-gallery [width="1200"] >}}
+File:Example.jpg|Optional caption/alt text
+File:Another.jpg
+{{< /commons-gallery >}}
+*/}}
+{{- $width := .Get "width" | default "1200" -}}
+{{- $items := split (trim .Inner "\n\r\t ") "\n" -}}
+{{- $columnWidth := .Get "columnWidth" | default "320px" -}}
+{{- if not ($.Page.Scratch.Get "commonsGalleryStyleAdded") -}}
+<style>
+.commons-gallery {
+  column-count: 2;
+  column-gap: 0.5rem;
+}
+.commons-gallery__item { break-inside: avoid; display: inline-block; width: 100%; }
+.commons-gallery__item img { width: 100%; height: auto; display: block; }
+@media (max-width: 900px) {
+  .commons-gallery { column-count: 1; }
+}
+</style>
+{{- $.Page.Scratch.Set "commonsGalleryStyleAdded" true -}}
+{{- end -}}
+<div class="commons-gallery">
+  {{- range $items }}
+    {{- $line := trim . " \t\r\n" -}}
+    {{- if ne $line "" -}}
+      {{- $parts := split $line "|" -}}
+      {{- $file := trim (index $parts 0) " \t\r\n" -}}
+      {{- $caption := "" -}}
+      {{- if ge (len $parts) 2 }}{{- $caption = trim (index $parts 1) " \t\r\n" -}}{{- else }}{{- $caption = trim (replaceRE "^File:" "" $file) " \t\r\n" -}}{{- end -}}
+      {{- $fileUnderscored := replace $file " " "_" -}}
+      {{- $fileEscaped := urlquery $fileUnderscored -}}
+      {{- $filePath := printf "https://commons.wikimedia.org/wiki/Special:FilePath/%s?width=%s" $fileEscaped $width -}}
+      {{- $fileLink := printf "https://commons.wikimedia.org/wiki/%s" $fileUnderscored -}}
+      <div class="commons-gallery__item">
+        <a class="db" href="{{ $fileLink }}" target="_blank" rel="noopener">
+          <img class="db w-100" src="{{ $filePath }}" alt="{{ $caption }}" loading="lazy">
+        </a>
+      </div>
+    {{- end -}}
+  {{- end -}}
+</div>
