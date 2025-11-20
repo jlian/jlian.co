@@ -27,10 +27,10 @@ I hadn't thought about the CEC automation via Raspberry Pi yet, I just wanted an
 While looking for answers I ran into a Sonos Community thread titled [Samsung S95C and Sonos Arc – issues with eARC][2]. Different hardware, same failure mode: random dropouts, TV defaulting to its own speakers, general unreliability. The replies that reported success all did the same thing—force the Samsung back to ARC and leave everything else alone. That was enough to try it myself.
 
 - On the Samsung S95B
-  - Go to **Settings → Sound → Expert Settings → HDMI eARC Mode**
-  - Set it to **Off**
-  - Keep **Anynet+ (HDMI-CEC)** enabled
-  - Pick the now-listed **Receiver (HDMI)** output without the eARC badge
+  - Go to **Settings → Sound → Expert Settings → HDMI eARC Mode**,
+  - Set it to **Off**,
+  - Keep **Anynet+ (HDMI-CEC)** enabled, and
+  - Pick the now-listed **Receiver (HDMI)** output without the eARC badge.
 - On the Denon X1700H
   - Keep **HDMI Control** on and 
   - Verify **ARC** stays on.

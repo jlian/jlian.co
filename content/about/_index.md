@@ -15,7 +15,7 @@ Before *that*, I studied Mechanical Engineering at [McGill University](https://w
 I grew up in [Xiamen](https://en.wikipedia.org/wiki/Xiamen), moved with my family to [Vancouver](https://en.wikipedia.org/wiki/Vancouver) in 2004, and now live in [Seattle](https://en.wikipedia.org/wiki/Seattle). 
 
 Outside of work, I split my time between 
-- [Taking pictures of birds](https://www.reddit.com/r/borbs/comments/1o96bfu/hi_borb/),
+- Taking [pictures of birds](https://en.wikipedia.org/wiki/User:Lianguanlun#Birds),
 - Breaking and [fixing](/posts/hdmi-cec/) home A/V and smart-home setups,
 - Being the world's okay-est [crossfitter](https://www.magnoliacrossfit.com),
 - [Playing sax](https://www.youtube.com/watch?v=AUB7zEwuaF8), and
