@@ -1,9 +1,9 @@
 {{ define "main" }}
-  <article class="pa3 nested-copy-line-height nested-img">
+  <article class="site-width pa3 nested-copy-line-height nested-img">
     {{ $section := .Paginate (where .Data.Pages "Section" .Section) }}
     <section class="flex-ns flex-wrap justify-center mt4">
       {{ range $section.Pages }}
-        <div class="relative w-100 w-33-l mb4 mb0-m pa3-l">
+        <div class="relative w-100 w-33-l mb5 mb0-m pa3-l">
           {{ .Render "summary-with-image" }}
         </div>
       {{ end }}

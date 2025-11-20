@@ -1,24 +1,24 @@
-:root {
-  --site-max: 64rem;
-  --site-gutter: 1.25rem;
-}
-
 .site-width {
-  max-width: calc(var(--site-max, 64rem) + 2 * var(--site-gutter, 1.25rem));
+  max-width: 64rem;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--site-gutter, 1.25rem);
-  padding-right: var(--site-gutter, 1.25rem);
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
 @media (min-width: 48rem) {
-  :root {
-    --site-gutter: 2rem;
+  .site-width {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 
 @media (min-width: 64rem) {
+  .site-width {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .w-70-l {
     width: 70%;
   }

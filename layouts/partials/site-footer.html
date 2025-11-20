@@ -1,12 +1,10 @@
 <footer class="bg-near-black bottom-0 w-100 pa3 pv3 ph3 ph4-ns site-footer" role="contentinfo">
-  <div class="site-width">
-    <div class="flex-ns justify-between items-center">
-      <a class="f4 fw4 hover-white no-underline white-70" href="{{ .Site.BaseURL }}" >
-        &copy; {{ now.Format "2006" }} {{ .Site.Title }}
-      </a>
-      <div class="items-center">
-        {{ partial "social-follow.html" . }}
-      </div>
+  <div class="flex-ns justify-between items-center site-width">
+    <a class="f4 fw4 hover-white no-underline white-70" href="{{ .Site.BaseURL }}" >
+      &copy; {{ now.Format "2006" }} {{ .Site.Title }}
+    </a>
+    <div class="items-center">
+      {{ partial "social-follow.html" . }}
     </div>
   </div>
 </footer>
